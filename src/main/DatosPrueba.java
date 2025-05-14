@@ -166,9 +166,9 @@ public class DatosPrueba {
         return categorias;
     }
 
-    /*public static ArrayList<Item> getItems() {
+    public static ArrayList<Item> getItems() {
         return items;
-    }*/
+    }
 
     public static ArrayList<Insumo> getInsumos() {
         return insumos;
