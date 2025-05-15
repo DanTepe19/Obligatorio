@@ -28,4 +28,15 @@ public class SistemaGestores {
         return gestores;
     }
     
+    public Gestor loginGestor(String usuario, String password){
+        Gestor gestor;
+        for(Gestor g:gestores){
+            gestor = (Gestor)g;
+            if(gestor.getNombreUsuario().equals(usuario) && gestor.getPassword().equals(password)){
+                return gestor;
+            }
+        }
+        return null;
+    }
+    
 }

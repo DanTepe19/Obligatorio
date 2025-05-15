@@ -134,9 +134,9 @@ public class DatosPrueba {
         clientes.add(new Cliente(1004, "Marta Ruiz", "0000", new DeLaCasa()));
 
         // 7. Gestores
-        Gestor g1 = new Gestor("chefC1", "c1", "Carlos Cocina", cocina);
-        Gestor g2 = new Gestor("chefC2", "c2", "Cecilia Cocina", cocina);
-        Gestor g3 = new Gestor("barman1", "b1", "Bruno Bar", bar);
+        Gestor g1 = new Gestor("chef1", "c1", "Carlos Alberto", cocina);
+        Gestor g2 = new Gestor("chef2", "c2", "Cecilia Rodriguez", cocina);
+        Gestor g3 = new Gestor("barman1", "b1", "Bruno Goonzález", bar);
         gestores.addAll(List.of(g1, g2, g3));
 
         // Agregar gestores a sus procesadoras
