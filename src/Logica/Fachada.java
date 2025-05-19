@@ -4,6 +4,8 @@
  */
 package Logica;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author diego
@@ -25,6 +27,10 @@ public class Fachada {
     }
     
     public Cliente loginCliente(String usuario, String password){
-        return sistemaClientes.loginCliente(usuario, password);
+        return sistemaClientes.loginCliente(usuario, password, getDispositivos());
+    }
+    
+    public ArrayList<Dispositivo> getDispositivos(){
+        return sistemaDispositivos.getDispositivos();
     }
 }

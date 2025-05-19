@@ -29,12 +29,18 @@ public class SistemaClientes {
         return clientes;
     }
     
-    public Cliente loginCliente(String usuario, String password){
+    public Cliente loginCliente(String usuario, String password, ArrayList<Dispositivo> dispositivos){
         Cliente cliente;
         int numero = parseInt(usuario);
         for(Cliente c:clientes){
             cliente = (Cliente)c;
             if(cliente.getNumeroCliente() == numero && cliente.getPassword().equals(password)){
+                for(Dispositivo d : dispositivos){
+                    if(d.getCliente() == null){
+                        d.asignarCliente(cliente);
+                        break;
+                    }
+                }
                 return cliente;
             }
         }

@@ -17,11 +17,13 @@ public class Dispositivo {
     private EstadoDispositivo estado;
     private Cliente cliente;
     private ArrayList<Pedido> pedidos;
+    private float montoTotal;
 
     public Dispositivo(int numero) {
         this.numero = numero;
         this.estado = new Disponible();
         this.pedidos = new ArrayList<>();
+        this.montoTotal = 0;
     }
 
     public Cliente getCliente() {
