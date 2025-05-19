@@ -29,9 +29,9 @@ public class ControladorAppCliente {
 
     private void inicializarVista() {
         cargarCategorias();
-        cargarItems();
+        /*cargarItems();
         cargarPedidos();
-        cargarMontoTotal();
+        cargarMontoTotal();*/
     }
     
     Fachada f = Fachada.getInstancia();

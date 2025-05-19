@@ -10,6 +10,7 @@ import Logica.Cliente;
 import Logica.Item;
 import Logica.Pedido;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -254,7 +255,11 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     @Override
     public void mostrarCategorias(ArrayList<CategoriaItem> categorias) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(CategoriaItem c : categorias){
+            model.addElement(c.getNombre());
+        }
+        jList1.setModel(model);
     }
 
     @Override
