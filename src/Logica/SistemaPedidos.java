@@ -41,7 +41,7 @@ public class SistemaPedidos {
         d.getMontoTotal();
     }
 
-    private ArrayList<Item> obtenerItems() {
+    public ArrayList<Item> obtenerItems() {
         ArrayList<Item> items = new ArrayList();
         for(CategoriaItem c : categorias){
             for(Item i : c.getItems()){

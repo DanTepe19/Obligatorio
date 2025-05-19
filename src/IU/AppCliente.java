@@ -4,7 +4,12 @@
  */
 package IU;
 
+import Controladores.ControladorAppCliente;
+import Logica.CategoriaItem;
 import Logica.Cliente;
+import Logica.Item;
+import Logica.Pedido;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,11 +17,14 @@ import Logica.Cliente;
  */
 public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
-    /**
-     * Creates new form Principal
-     */
+    private ControladorAppCliente controlador;
+    private Cliente cliente;
+    
     public AppCliente(Cliente cliente) {
         initComponents();
+        setTitle("Realizar Pedidos - Cliente: " + cliente.getNombreCompleto());
+        this.cliente = cliente;
+        controlador = new ControladorAppCliente(this, cliente);
     }
 
     /**
@@ -168,7 +176,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mensajes del sistema", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -243,8 +251,24 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
+
     @Override
-    public void mostrarCategorias() {
+    public void mostrarCategorias(ArrayList<CategoriaItem> categorias) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarItems(ArrayList<Item> items) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarPedidos(ArrayList<Pedido> pedidos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarMontoTotal(float montoTotal) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

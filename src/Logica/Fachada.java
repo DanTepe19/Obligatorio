@@ -37,4 +37,13 @@ public class Fachada {
     public void realizarPedidos(Cliente cliente){
         sistemaPedidos.realizarPedidos(cliente);
     }
+    
+    public ArrayList<CategoriaItem> getCategorias(){
+        return sistemaPedidos.getCategorias();
+    }
+
+    public ArrayList<Item> obtenerItems() {
+        return sistemaPedidos.obtenerItems();
+    }
+    
 }
