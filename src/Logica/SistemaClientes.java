@@ -4,6 +4,7 @@
  */
 package Logica;
 
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import main.DatosPrueba;
 
@@ -26,6 +27,18 @@ public class SistemaClientes {
     
     public ArrayList<Cliente> getClientes(){
         return clientes;
+    }
+    
+    public Cliente loginCliente(String usuario, String password){
+        Cliente cliente;
+        int numero = parseInt(usuario);
+        for(Cliente c:clientes){
+            cliente = (Cliente)c;
+            if(cliente.getNumeroCliente() == numero && cliente.getPassword().equals(password)){
+                return cliente;
+            }
+        }
+        return null;
     }
     
 }

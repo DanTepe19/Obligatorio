@@ -128,10 +128,10 @@ public class DatosPrueba {
         dispositivos.add(new Dispositivo(3));
 
         // 6. Clientes
-        clientes.add(new Cliente(1001, "Juan Pérez", "1234", new Comun()));
-        clientes.add(new Cliente(1002, "Ana Gómez", "abcd", new Frecuente()));
-        clientes.add(new Cliente(1003, "Luis Torres", "pass", new Preferencial()));
-        clientes.add(new Cliente(1004, "Marta Ruiz", "0000", new DeLaCasa()));
+        clientes.add(new Cliente(1001, "1234", "Juan Pérez", new Comun()));
+        clientes.add(new Cliente(1002, "1234", "Martina González", new Frecuente()));
+        clientes.add(new Cliente(1003, "1234", "Lamine Yamal", new Preferencial()));
+        clientes.add(new Cliente(1004, "1234", "Luis Suárez", new DeLaCasa()));
 
         // 7. Gestores
         Gestor g1 = new Gestor("chef1", "c1", "Carlos Alberto", cocina);

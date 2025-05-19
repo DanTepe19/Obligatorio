@@ -23,4 +23,8 @@ public class Fachada {
     public Gestor loginGestor(String usuario, String password){
         return sistemaGestores.loginGestor(usuario, password);
     }
+    
+    public Cliente loginCliente(String usuario, String password){
+        return sistemaClientes.loginCliente(usuario, password);
+    }
 }

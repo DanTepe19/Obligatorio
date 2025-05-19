@@ -4,26 +4,28 @@
  */
 package IU;
 
+import Logica.Cliente;
 import Logica.Fachada;
 
 /**
  *
  * @author diego
  */
-public class LoginGestor extends LoginAbstracto {
+public class LoginCliente extends LoginAbstracto{
     
-    public LoginGestor() {
+    public LoginCliente() {
         super();
     }
 
     @Override
     public Object llamarLogin(String usuario, String password) {
-        return Fachada.getInstancia().loginGestor(usuario, password);
+        return Fachada.getInstancia().loginCliente(usuario, password);
     }
 
     @Override
     public void proximoCU(Object usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Cliente cliente = (Cliente) usuario;
+        //AppCliente.setVisible(true);
     }
     
 }
