@@ -33,4 +33,8 @@ public class Fachada {
     public ArrayList<Dispositivo> getDispositivos(){
         return sistemaDispositivos.getDispositivos();
     }
+    
+    public void realizarPedidos(Cliente cliente){
+        sistemaPedidos.realizarPedidos(cliente);
+    }
 }

@@ -26,6 +26,14 @@ public class Dispositivo {
         this.montoTotal = 0;
     }
 
+    public float getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(float montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }

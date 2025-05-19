@@ -15,7 +15,8 @@ public class SistemaPedidos {
     
     private static SistemaPedidos instancia;
     
-    //private ArrayList<Pedido> pedidos = DatosPrueba.getPedidos();
+    private ArrayList<Pedido> pedidos = new ArrayList();
+    private ArrayList<CategoriaItem> categorias = DatosPrueba.getCategorias();
     
     public synchronized static SistemaPedidos getInstancia() {
         if (instancia == null) {
@@ -23,9 +24,33 @@ public class SistemaPedidos {
         }
         return instancia;
     }
-    
-    /*public ArrayList<Pedido> getPedidos(){
+
+    public ArrayList<Pedido> getPedidos() {
         return pedidos;
-    }*/
+    }
+
+    public ArrayList<CategoriaItem> getCategorias() {
+        return categorias;
+    }
+
+    public void realizarPedidos(Cliente cliente) {
+        Dispositivo d = cliente.getDispositivo();
+        getCategorias();
+        obtenerItems();
+        d.getPedidos();
+        d.getMontoTotal();
+    }
+
+    private ArrayList<Item> obtenerItems() {
+        ArrayList<Item> items = new ArrayList();
+        for(CategoriaItem c : categorias){
+            for(Item i : c.getItems()){
+                if(!items.contains(i)){
+                    items.add(i);
+                }
+            }
+        }
+        return items;
+    }
     
 }

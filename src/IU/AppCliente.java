@@ -10,7 +10,7 @@ import Logica.Cliente;
  *
  * @author diego
  */
-public class AppCliente extends javax.swing.JFrame {
+public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     /**
      * Creates new form Principal
@@ -242,4 +242,9 @@ public class AppCliente extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarCategorias() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
