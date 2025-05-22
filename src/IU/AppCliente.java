@@ -264,7 +264,11 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     @Override
     public void mostrarItems(ArrayList<Item> items) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(Item i : items){
+            model.addElement(i.getNombre()+ " - $" + i.getPrecio());
+        }
+        jList2.setModel(model);
     }
 
     @Override

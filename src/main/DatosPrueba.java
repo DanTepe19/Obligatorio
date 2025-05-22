@@ -79,30 +79,30 @@ public class DatosPrueba {
         ArrayList<Ingrediente> ingredientesMilanesa = new ArrayList<>();
         ingredientesMilanesa.add(new Ingrediente(carne, 1));
         ingredientesMilanesa.add(new Ingrediente(papas, 3));
-        Item milanesa = new Item("Milanesa con fritas", 450f, ingredientesMilanesa, cocina, principal);
+        Item milanesa = new Item("Milanesa con fritas", 450, ingredientesMilanesa, cocina, principal);
 
         ArrayList<Ingrediente> ingredientesGinTonic = new ArrayList<>();
         ingredientesGinTonic.add(new Ingrediente(gin, 1));
         ingredientesGinTonic.add(new Ingrediente(tonica, 1));
-        Item ginTonic = new Item("Gin Tonic", 300f, ingredientesGinTonic, bar, bebida);
+        Item ginTonic = new Item("Gin Tonic", 300, ingredientesGinTonic, bar, bebida);
 
         ArrayList<Ingrediente> ingredientesNigiri = new ArrayList<>();
         ingredientesNigiri.add(new Ingrediente(arroz, 2));
         ingredientesNigiri.add(new Ingrediente(salmon, 2));
-        Item nigiri = new Item("Nigiri", 320f, ingredientesNigiri, barraSushi, entrada);
+        Item nigiri = new Item("Nigiri", 320, ingredientesNigiri, barraSushi, entrada);
 
         ArrayList<Ingrediente> ingredientesAgua = new ArrayList<>();
         ingredientesAgua.add(new Ingrediente(aguaMineral, 1));
-        Item agua = new Item("Agua Mineral", 80f, ingredientesAgua, bar, bebida);
+        Item agua = new Item("Agua Mineral", 80, ingredientesAgua, bar, bebida);
 
         ArrayList<Ingrediente> ingredientesCafe = new ArrayList<>();
         ingredientesCafe.add(new Ingrediente(cafe, 1));
-        Item cafeItem = new Item("Café", 120f, ingredientesCafe, bar, bebida);
+        Item cafeItem = new Item("Café", 120, ingredientesCafe, bar, bebida);
 
         ArrayList<Ingrediente> ingredientesPizza = new ArrayList<>();
         ingredientesPizza.add(new Ingrediente(queso, 2));
         ingredientesPizza.add(new Ingrediente(aceituna, 3));
-        Item pizza = new Item("Pizza", 400f, ingredientesPizza, cocina, principal);
+        Item pizza = new Item("Pizza", 400, ingredientesPizza, cocina, principal);
 
         items.addAll(List.of(milanesa, ginTonic, nigiri, agua, cafeItem, pizza));
 

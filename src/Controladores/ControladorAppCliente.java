@@ -29,8 +29,8 @@ public class ControladorAppCliente {
 
     private void inicializarVista() {
         cargarCategorias();
-        /*cargarItems();
-        cargarPedidos();
+        cargarItems();
+        /*cargarPedidos();
         cargarMontoTotal();*/
     }
     

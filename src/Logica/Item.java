@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class Item {
 
     private String nombre;
-    private float precio;
+    private int precio;
     private ArrayList<Ingrediente> ingredientes;
     private Procesadora procesadora;
     private CategoriaItem categoria;
 
-    public Item(String nombre, float precio, ArrayList<Ingrediente> ingredientes, Procesadora procesadora, CategoriaItem categoria) {
+    public Item(String nombre, int precio, ArrayList<Ingrediente> ingredientes, Procesadora procesadora, CategoriaItem categoria) {
         this.nombre = nombre;
         this.precio = precio;
         this.ingredientes = ingredientes;
@@ -34,11 +34,11 @@ public class Item {
         this.nombre = nombre;
     }
 
-    public float getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 

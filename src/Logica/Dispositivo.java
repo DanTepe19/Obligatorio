@@ -17,7 +17,7 @@ public class Dispositivo {
     private EstadoDispositivo estado;
     private Cliente cliente;
     private ArrayList<Pedido> pedidos;
-    private float montoTotal;
+    private int montoTotal;
 
     public Dispositivo(int numero) {
         this.numero = numero;
@@ -30,7 +30,7 @@ public class Dispositivo {
         return montoTotal;
     }
 
-    public void setMontoTotal(float montoTotal) {
+    public void setMontoTotal(int montoTotal) {
         this.montoTotal = montoTotal;
     }
 
