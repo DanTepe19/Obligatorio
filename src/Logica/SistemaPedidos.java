@@ -53,4 +53,17 @@ public class SistemaPedidos {
         return items;
     }
     
+    public CategoriaItem getCategoria(String nombre){
+        for(CategoriaItem c : categorias){
+            if(c.getNombre().equals(nombre)){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Item> obtenerItemsPorCategoria(CategoriaItem categoria) {
+        return categoria.getItems();
+     }
+    
 }

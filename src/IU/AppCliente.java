@@ -67,6 +67,11 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jTextArea1.setColumns(20);
@@ -228,6 +233,14 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        int selectedIndex = jList1.getSelectedIndex();
+        if (selectedIndex != -1) {
+            String selectedCategoria = jList1.getModel().getElementAt(selectedIndex);
+            controlador.seleccionarCategoria(selectedCategoria);
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
