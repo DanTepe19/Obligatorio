@@ -66,6 +66,15 @@ public class Item {
         this.categoria = categoria;
     }
     
+    public boolean hayStock() {
+    for (Ingrediente ing : ingredientes) {
+        Insumo insumo = ing.getInsumo();
+        if (insumo.getStockActual() < insumo.getStockMinimo()) {
+            return false;
+        }
+    }
+    return true;
+}
     
 
 }

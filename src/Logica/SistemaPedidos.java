@@ -63,7 +63,13 @@ public class SistemaPedidos {
     }
 
     public ArrayList<Item> obtenerItemsPorCategoria(CategoriaItem categoria) {
-        return categoria.getItems();
+        ArrayList<Item> items = new ArrayList<>();
+        for(Item i : categoria.getItems()){
+            if(i.hayStock()){
+                items.add(i);
+            }
+        }
+        return items;
      }
     
 }
