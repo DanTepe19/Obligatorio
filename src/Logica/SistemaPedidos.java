@@ -71,5 +71,16 @@ public class SistemaPedidos {
         }
         return items;
      }
+
+    public Item getItem(String nombreItem) {
+        for(CategoriaItem c : categorias){
+            for(Item i : c.getItems()){
+                if(i.getNombre().equals(nombreItem)){
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
     
 }

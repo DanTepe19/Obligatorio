@@ -5,6 +5,7 @@
 package IU;
 
 import Controladores.ControladorAppCliente;
+import Excepciones.PedidoException;
 import Logica.CategoriaItem;
 import Logica.Cliente;
 import Logica.Item;
@@ -20,7 +21,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     private ControladorAppCliente controlador;
     private Cliente cliente;
-    
+
     public AppCliente(Cliente cliente) {
         initComponents();
         setTitle("Realizar Pedidos - Cliente: " + cliente.getNombreCompleto());
@@ -80,13 +81,28 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         jScrollPane2.setViewportView(jTextArea1);
 
         jButton2.setText("Agregar Pedido");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Eliminar Pedido");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList2MouseClicked(evt);
+            }
         });
         jScrollPane3.setViewportView(jList2);
 
@@ -135,8 +151,18 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedidos del servicio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
         jButton4.setText("Finalizar Servicio");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Confirmar Pedidos");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,6 +178,11 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         jScrollPane4.setViewportView(jTable1);
 
         jTextField2.setText("montoFinal");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -242,6 +273,46 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         }
     }//GEN-LAST:event_jList1MouseClicked
 
+    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
+
+    }//GEN-LAST:event_jList2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            String seleccion = jList2.getSelectedValue();
+            String texto = jTextArea1.getText();
+
+            if (seleccion == null) {
+                throw new PedidoException("Debe seleccionar un ítem");
+            }
+
+            String nombreItem = seleccion.split(" - ")[0].trim();
+            Item item = controlador.getItem(nombreItem);
+
+            controlador.agregarPedido(item, texto);
+            jTextArea2.setText("Pedido agregado: " + item.getNombre());
+
+        } catch (PedidoException ex) {
+            jTextArea2.setText(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
@@ -265,11 +336,10 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
-
     @Override
     public void mostrarCategorias(ArrayList<CategoriaItem> categorias) {
         DefaultListModel<String> model = new DefaultListModel<>();
-        for(CategoriaItem c : categorias){
+        for (CategoriaItem c : categorias) {
             model.addElement(c.getNombre());
         }
         jList1.setModel(model);
@@ -278,8 +348,8 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     @Override
     public void mostrarItems(ArrayList<Item> items) {
         DefaultListModel<String> model = new DefaultListModel<>();
-        for(Item i : items){
-            model.addElement(i.getNombre()+ " - $" + i.getPrecio());
+        for (Item i : items) {
+            model.addElement(i.getNombre() + " - $" + i.getPrecio());
         }
         jList2.setModel(model);
     }

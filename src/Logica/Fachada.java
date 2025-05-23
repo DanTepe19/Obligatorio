@@ -53,4 +53,8 @@ public class Fachada {
     public ArrayList<Item> obtenerItemsPorCategoria(CategoriaItem categoria) {
         return sistemaPedidos.obtenerItemsPorCategoria(categoria);
     }
+
+    public Item getItem(String nombreItem) {
+        return sistemaPedidos.getItem(nombreItem);
+    }
 }

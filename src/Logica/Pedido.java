@@ -16,12 +16,22 @@ public class Pedido {
     private Gestor gestor;
     private Dispositivo dispositivo;
     private EstadoPedido estado;
+    private String comentario;
 
-    public Pedido(Item item, Dispositivo dispositivo) {
+    public Pedido(Item item, Dispositivo dispositivo, String comentario) {
         this.item = item;
         this.dispositivo = dispositivo;
         this.gestor = null;
         this.estado = new NoConfirmado();
+        this.comentario = comentario;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public Item getItem() {
