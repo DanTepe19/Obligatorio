@@ -5,12 +5,14 @@
 package Logica;
 
 import java.util.ArrayList;
+import observer.Observable;
+import observer.Observador;
 
 /**
  *
  * @author diego
  */
-public class Fachada {
+public class Fachada extends Observable implements Observador {
     private static final Fachada instancia = new Fachada();
     
     SistemaDispositivos sistemaDispositivos = SistemaDispositivos.getInstancia();
@@ -57,5 +59,10 @@ public class Fachada {
 
     public Item getItem(String nombreItem) {
         return sistemaPedidos.getItem(nombreItem);
+    }
+
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

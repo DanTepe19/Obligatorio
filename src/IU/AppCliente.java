@@ -27,6 +27,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         setTitle("Realizar Pedidos - Cliente: " + cliente.getNombreCompleto());
         this.cliente = cliente;
         controlador = new ControladorAppCliente(this, cliente);
+        
     }
 
     /**

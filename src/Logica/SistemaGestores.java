@@ -6,12 +6,13 @@ package Logica;
 
 import java.util.ArrayList;
 import main.DatosPrueba;
+import observer.Observable;
 
 /**
  *
  * @author diego
  */
-public class SistemaGestores {
+public class SistemaGestores extends Observable {
     
     private static SistemaGestores instancia;
     

@@ -5,12 +5,13 @@
 package Logica;
 
 import java.util.ArrayList;
+import observer.Observable;
 
 /**
  *
  * @author diego
  */
-public class SistemaServicios {
+public class SistemaServicios extends Observable {
     
     private static SistemaServicios instancia;
     

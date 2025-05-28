@@ -6,12 +6,13 @@ package Logica;
 
 import Excepciones.PedidoException;
 import java.util.ArrayList;
+import observer.Observable;
 
 /**
  *
  * @author diego
  */
-public class Dispositivo {
+public class Dispositivo extends Observable{
 
     private int numero;
     private EstadoDispositivo estado;
@@ -44,6 +45,7 @@ public class Dispositivo {
 
     public void setEstado(EstadoDispositivo estado) {
         this.estado = estado;
+        avisar(EventosDispositivo.CAMBIO_ESTADO_DISPOSITIVO);
     }
 
     public void asignarCliente(Cliente c) {

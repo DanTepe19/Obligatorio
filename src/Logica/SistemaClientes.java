@@ -7,12 +7,13 @@ package Logica;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import main.DatosPrueba;
+import observer.Observable;
 
 /**
  *
  * @author diego
  */
-public class SistemaClientes {
+public class SistemaClientes extends Observable {
     
     private static SistemaClientes instancia;
     

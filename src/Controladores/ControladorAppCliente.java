@@ -14,12 +14,14 @@ import Logica.Fachada;
 import Logica.Item;
 import Logica.Pedido;
 import java.util.ArrayList;
+import observer.Observable;
+import observer.Observador;
 
 /**
  *
  * @author diego
  */
-public class ControladorAppCliente {
+public class ControladorAppCliente implements Observador{
 
     private IVistaAppCliente vista;
     private Cliente cliente;
@@ -31,8 +33,10 @@ public class ControladorAppCliente {
         this.vista = vista;
         this.cliente = cliente;
         this.dispositivo = cliente.getDispositivo();
+        this.servicio = cliente.getServicio();
+        this.servicio.agregarObservador(this);
+        this.dispositivo.agregarObservador(this);
         inicializarVista();
-        //observador
     }
 
     private void inicializarVista() {
@@ -92,7 +96,13 @@ public class ControladorAppCliente {
         }
 
         Pedido nuevoPedido = new Pedido(item, dispositivo, comentario);
+        nuevoPedido.agregarObservador(this);
         servicio.getPedidos().add(nuevoPedido);
+    }
+
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -5,12 +5,13 @@
 package Logica;
 
 import Excepciones.PedidoException;
+import observer.Observable;
 
 /**
  *
  * @author diego
  */
-public class Pedido {
+public class Pedido extends Observable{
 
     private Item item;
     private Gestor gestor;
@@ -64,6 +65,7 @@ public class Pedido {
 
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
+        avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
     }
 
     public void confirmar() throws PedidoException {
