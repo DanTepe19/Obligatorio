@@ -34,11 +34,11 @@ public class SistemaPedidos {
     }
 
     public void realizarPedidos(Cliente cliente) {
-        Dispositivo d = cliente.getDispositivo();
+        Servicio s = cliente.getServicio();
         getCategorias();
         obtenerItems();
-        d.getPedidos();
-        d.getMontoTotal();
+        s.getPedidos();
+        s.getMontoTotal();
     }
 
     public ArrayList<Item> obtenerItems() {

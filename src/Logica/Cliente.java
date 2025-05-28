@@ -13,6 +13,7 @@ public class Cliente {
     private String password;
     private String nombreCompleto;
     private Dispositivo dispositivo;
+    private Servicio servicio;
     private TipoCliente tipo;
 
     public Cliente(int numeroCliente, String password, String nombreCompleto, TipoCliente tipo) {
@@ -20,6 +21,14 @@ public class Cliente {
         this.password = password;
         this.nombreCompleto = nombreCompleto;
         this.tipo = tipo;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
 
     public int getNumeroCliente() {
@@ -68,11 +77,11 @@ public class Cliente {
 
     public double calcularMontoFinal() {
     double total = 0;
-    for (Pedido p : dispositivo.getPedidos()) {
+    for (Pedido p : servicio.getPedidos()) {
         total += p.getItem().getPrecio();
     }
 
-    double descuento = tipo.calcularDescuento(dispositivo);
+    double descuento = tipo.calcularDescuento(servicio);
     return Math.max(0, total - descuento);
 }
     

@@ -22,7 +22,6 @@ public class Ocupado extends EstadoDispositivo {
             cliente.liberarDispositivo();
         }
         dispositivo.setCliente(null);
-        dispositivo.getPedidos().clear();
         dispositivo.setEstado(new Disponible());
     }
 

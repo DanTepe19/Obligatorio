@@ -8,11 +8,9 @@ package Logica;
  *
  * @author diego
  */
-public class Comun extends TipoCliente {
-
-    @Override
-    public double calcularDescuento(Servicio servicio) {
-        return 0;
-    }
+public abstract class EstadoServicio {
+    
+    public abstract void terminar(Servicio servicio);
+    public abstract String getNombre();
     
 }

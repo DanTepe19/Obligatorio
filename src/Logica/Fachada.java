@@ -17,6 +17,7 @@ public class Fachada {
     SistemaClientes sistemaClientes = SistemaClientes.getInstancia();
     SistemaGestores sistemaGestores = SistemaGestores.getInstancia();
     SistemaPedidos sistemaPedidos = SistemaPedidos.getInstancia();
+    SistemaServicios sistemaServicios = SistemaServicios.getInstancia();
     
     public static Fachada getInstancia(){
         return instancia;

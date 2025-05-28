@@ -1,0 +1,69 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Logica;
+
+import Excepciones.PedidoException;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author diego
+ */
+public class Servicio {
+    
+    private Cliente cliente;
+    private EstadoServicio estado;
+    private ArrayList<Pedido> pedidos;
+    private int montoTotal;
+
+    public Servicio(Cliente cliente) {
+        this.cliente = cliente;
+        this.estado = new Activo();
+        this.pedidos = new ArrayList<>();
+        this.montoTotal = 0;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public EstadoServicio getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoServicio estado) {
+        this.estado = estado;
+    }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(ArrayList<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public int getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(int montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+    
+    public void confirmarPedidos() throws PedidoException {
+        for (Pedido p : pedidos) {
+            if (p.getEstado() instanceof NoConfirmado) {
+                p.confirmar();
+            }
+        }
+    }
+    
+    
+}

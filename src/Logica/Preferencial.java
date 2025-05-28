@@ -11,11 +11,11 @@ package Logica;
 public class Preferencial extends TipoCliente {
 
     @Override
-    public double calcularDescuento(Dispositivo dispositivo) {
+    public double calcularDescuento(Servicio servicio) {
         double descuento = 0;
         double total = 0;
 
-        for (Pedido p : dispositivo.getPedidos()) {
+        for (Pedido p : servicio.getPedidos()) {
             Item item = p.getItem();
             total += item.getPrecio();
             if (item.getNombre().equalsIgnoreCase("Agua Mineral")) {

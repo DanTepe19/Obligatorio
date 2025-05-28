@@ -8,16 +8,16 @@ package Logica;
  *
  * @author diego
  */
-public class DeLaCasa extends TipoCliente {
+public class Terminado extends EstadoServicio {
 
     @Override
-    public double calcularDescuento(Servicio servicio) {
-        double total = 0;
-        for (Pedido p : servicio.getPedidos()) {
-            total += p.getItem().getPrecio();
-        }
+    public void terminar(Servicio servicio) {
+        
+    }
 
-        return Math.min(500, total);
+    @Override
+    public String getNombre() {
+        return "TERMINADO";
     }
     
 }

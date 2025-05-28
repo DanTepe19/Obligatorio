@@ -38,6 +38,8 @@ public class SistemaClientes {
                 for(Dispositivo d : dispositivos){
                     if(d.getCliente() == null){
                         d.asignarCliente(cliente);
+                        Servicio servicio = new Servicio(cliente);
+                        cliente.setServicio(servicio);
                         break;
                     }
                 }

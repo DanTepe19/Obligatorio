@@ -10,6 +10,6 @@ package Logica;
  */
 public abstract class TipoCliente {
     
-    public abstract double calcularDescuento(Dispositivo dispositivo);
+    public abstract double calcularDescuento(Servicio servicio);
     
 }

@@ -14,7 +14,6 @@ public class Disponible extends EstadoDispositivo {
     public void asignarCliente(Dispositivo dispositivo, Cliente cliente) {
         dispositivo.setCliente(cliente);
         dispositivo.setEstado(new Ocupado());
-        dispositivo.getPedidos().clear();
         cliente.asignarDispositivo(dispositivo);
     }
 

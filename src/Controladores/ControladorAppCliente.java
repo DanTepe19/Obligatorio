@@ -9,6 +9,7 @@ import IU.IVistaAppCliente;
 import Logica.CategoriaItem;
 import Logica.Cliente;
 import Logica.Dispositivo;
+import Logica.Servicio;
 import Logica.Fachada;
 import Logica.Item;
 import Logica.Pedido;
@@ -23,6 +24,7 @@ public class ControladorAppCliente {
     private IVistaAppCliente vista;
     private Cliente cliente;
     private Dispositivo dispositivo;
+    private Servicio servicio;
     private CategoriaItem categoria;
 
     public ControladorAppCliente(IVistaAppCliente vista, Cliente cliente) {
@@ -51,11 +53,11 @@ public class ControladorAppCliente {
     }
 
     private void cargarPedidos() {
-        vista.mostrarPedidos(dispositivo.getPedidos());
+        vista.mostrarPedidos(servicio.getPedidos());
     }
 
     private void cargarMontoTotal() {
-        vista.mostrarMontoTotal(dispositivo.getMontoTotal());
+        vista.mostrarMontoTotal(servicio.getMontoTotal());
     }
 
     public void seleccionarCategoria(String selectedCategoria) {
@@ -76,10 +78,10 @@ public class ControladorAppCliente {
             throw new PedidoException("Debe seleccionar un ítem");
         }
         if (!item.hayStock()) {
-            ArrayList<Pedido> pedidos = dispositivo.getPedidos();
+            ArrayList<Pedido> pedidos = servicio.getPedidos();
             ArrayList<Pedido> pedidosParaEliminar = new ArrayList<>();
             for (Pedido p : pedidos) {
-                if (p.getItem().equals(item) && p.estaNoConfirmado()) {
+                if (p.getItem().equals(item) && p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
                     pedidosParaEliminar.add(p);
                 }
             }
@@ -89,9 +91,8 @@ public class ControladorAppCliente {
             throw new PedidoException("Lo sentimos, nos hemos quedado sin stock de " + item.getNombre() + " por lo que lo hemos quitado del pedido del servicio");
         }
 
-        // Crear y agregar el nuevo pedido si todo está bien
         Pedido nuevoPedido = new Pedido(item, dispositivo, comentario);
-        dispositivo.getPedidos().add(nuevoPedido);
+        servicio.getPedidos().add(nuevoPedido);
     }
 
 }
