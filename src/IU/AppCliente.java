@@ -27,7 +27,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         setTitle("Realizar Pedidos - Cliente: " + cliente.getNombreCompleto());
         this.cliente = cliente;
         controlador = new ControladorAppCliente(this, cliente);
-        
+
     }
 
     /**
@@ -357,7 +357,20 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     @Override
     public void mostrarPedidos(ArrayList<Pedido> pedidos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        for (Pedido p : pedidos) {
+            Object[] fila = new Object[]{
+                p.getItem().getNombre(),
+                p.getComentario(),
+                p.getEstado().getNombre(),
+                p.getItem().getProcesadora().getNombre(),
+                (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "-",
+                "$" + p.getItem().getPrecio()
+            };
+            model.addRow(fila);
+        }
     }
 
     @Override

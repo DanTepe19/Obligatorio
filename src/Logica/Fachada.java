@@ -60,9 +60,13 @@ public class Fachada extends Observable implements Observador {
     public Item getItem(String nombreItem) {
         return sistemaPedidos.getItem(nombreItem);
     }
-
+    
     @Override
     public void actualizar(Observable origen, Object evento) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void agregarPedido(Pedido nuevoPedido, Servicio servicio) {
+        sistemaServicios.agregarPedido(nuevoPedido, servicio);
     }
 }

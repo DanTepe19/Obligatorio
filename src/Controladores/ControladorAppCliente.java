@@ -9,6 +9,7 @@ import IU.IVistaAppCliente;
 import Logica.CategoriaItem;
 import Logica.Cliente;
 import Logica.Dispositivo;
+import Logica.EventosPedido;
 import Logica.Servicio;
 import Logica.Fachada;
 import Logica.Item;
@@ -97,12 +98,14 @@ public class ControladorAppCliente implements Observador{
 
         Pedido nuevoPedido = new Pedido(item, dispositivo, comentario);
         nuevoPedido.agregarObservador(this);
-        servicio.getPedidos().add(nuevoPedido);
+        f.agregarPedido(nuevoPedido, servicio);
     }
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(evento.equals(EventosPedido.PEDIDO_AGREGADO)){
+            cargarPedidos();
+        }
     }
 
 }

@@ -9,5 +9,6 @@ package Logica;
  * @author diego
  */
 public enum EventosPedido {
-    CAMBIO_ESTADO_PEDIDO
+    CAMBIO_ESTADO_PEDIDO,
+    PEDIDO_AGREGADO
 }

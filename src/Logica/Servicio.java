@@ -66,6 +66,13 @@ public class Servicio extends Observable {
             }
         }
     }
+
+    public void agregarPedido(Pedido nuevoPedido) {
+        if(nuevoPedido != null){
+            pedidos.add(nuevoPedido);
+            avisar(EventosPedido.PEDIDO_AGREGADO);
+        }
+    }
     
     
 }

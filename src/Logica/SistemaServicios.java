@@ -23,5 +23,9 @@ public class SistemaServicios extends Observable {
         }
         return instancia;
     }
+
+    public void agregarPedido(Pedido nuevoPedido, Servicio servicio) {
+       servicio.agregarPedido(nuevoPedido);
+    }
     
 }
