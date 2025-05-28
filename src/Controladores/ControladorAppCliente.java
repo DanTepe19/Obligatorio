@@ -99,11 +99,12 @@ public class ControladorAppCliente implements Observador{
         Pedido nuevoPedido = new Pedido(item, dispositivo, comentario);
         nuevoPedido.agregarObservador(this);
         f.agregarPedido(nuevoPedido, servicio);
+        
     }
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-        if(evento.equals(EventosPedido.PEDIDO_AGREGADO)){
+        if(evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO)){
             cargarPedidos();
         }
     }

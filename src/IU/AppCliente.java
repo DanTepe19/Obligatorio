@@ -292,6 +292,9 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
             controlador.agregarPedido(item, texto);
             jTextArea2.setText("Pedido agregado: " + item.getNombre());
+            jTextArea1.setText("");
+            jList1.clearSelection();
+            jList2.clearSelection();
 
         } catch (PedidoException ex) {
             jTextArea2.setText(ex.getMessage());
