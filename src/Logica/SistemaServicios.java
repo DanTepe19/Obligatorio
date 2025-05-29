@@ -28,4 +28,9 @@ public class SistemaServicios extends Observable {
        servicio.agregarPedido(nuevoPedido);
     }
     
+    public void eliminarPedido(Pedido eliminarPedido, Servicio servicio){
+        if( servicio != null){
+            servicio.eliminarPedido(eliminarPedido);
+        }
+    }
 }

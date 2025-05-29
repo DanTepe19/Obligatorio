@@ -12,6 +12,7 @@ import Logica.Item;
 import Logica.Pedido;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -302,7 +303,35 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        try{
+            int seleccion = jTable1.getSelectedRow();
+          
+            if(seleccion == -1){
+                throw new PedidoException("Debe seleccionar un pedido");
+            }
+            
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            
+            String nombreItem = (String) modelo.getValueAt(seleccion, 0);
+            String comentario = (String) modelo.getValueAt(seleccion, 1);
+            
+            Pedido eliminarPedido = null;
+            for(Pedido p : controlador.getServicio().getPedidos()){
+                if(p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario)){
+                    eliminarPedido = p;
+                    break;
+                }
+            }
+            controlador.eliminarPedido(eliminarPedido);
+            
+            jTextArea2.setText("Pedido eliminado: " + nombreItem);
+            jList1.clearSelection();
+            jList2.clearSelection();
+            
+            
+        }catch (PedidoException ex) {
+           jTextArea2.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

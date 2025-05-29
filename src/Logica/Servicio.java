@@ -74,5 +74,12 @@ public class Servicio extends Observable {
         }
     }
     
+    public void eliminarPedido(Pedido p){
+        if(pedidos.remove(p)){
+            avisar(EventosPedido.PEDIDO_ELIMINADO);
+        }
+        
+    }
+    
     
 }

@@ -104,9 +104,24 @@ public class ControladorAppCliente implements Observador{
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-        if(evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO)){
+        if(evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)){
             cargarPedidos();
         }
     }
+    
+    public void eliminarPedido(Pedido eliminarPedido) throws PedidoException {
+        if(cliente == null){
+            throw new PedidoException("Debe identificarse antes de realizar pedidos");
+        }
+        if(eliminarPedido == null){
+            throw new PedidoException("Debe seleccionar un pedido");
+        }
+        f.eliminarPedido(eliminarPedido, servicio);
+    }
+    
+    public Servicio getServicio(){
+        return servicio;
+    }
+    
 
 }

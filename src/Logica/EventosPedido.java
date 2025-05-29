@@ -10,5 +10,6 @@ package Logica;
  */
 public enum EventosPedido {
     CAMBIO_ESTADO_PEDIDO,
-    PEDIDO_AGREGADO
+    PEDIDO_AGREGADO,
+    PEDIDO_ELIMINADO
 }
