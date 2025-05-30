@@ -320,7 +320,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
             
             Pedido eliminarPedido = null;
             for(Pedido p : controlador.getServicio().getPedidos()){
-                if(p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario) && p.getEstado().getNombre().equals(estado) && p.getGestor().getNombreCompleto().equals(gestor)){
+                if(p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario) && p.getEstado().getNombre().equals(estado)){
                     eliminarPedido = p;
                     break;
                 }
@@ -341,7 +341,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         try {
             controlador.confirmarPedidos();
         } catch (PedidoException ex) {
-            Logger.getLogger(AppCliente.class.getName()).log(Level.SEVERE, null, ex);
+            jTextArea2.setText(ex.getMessage());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 

@@ -71,7 +71,6 @@ public class Servicio extends Observable {
         if(nuevoPedido != null){
             pedidos.add(nuevoPedido);
             avisar(EventosPedido.PEDIDO_AGREGADO);
-            nuevoPedido.restarStock();
         }
     }
     
@@ -91,6 +90,7 @@ public class Servicio extends Observable {
         if(p.getEstado().getNombre().equals("NO_CONFIRMADO")){
             p.confirmar();
             avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
+            p.restarStock();
         }
     }
     
