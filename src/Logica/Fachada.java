@@ -77,4 +77,8 @@ public class Fachada extends Observable implements Observador {
     public int obtenerMontoFinal(Servicio servicio){
         return sistemaServicios.obtenerMontoFinal(servicio);
     }
+
+    public void confirmarPedidos(Pedido p, Servicio servicio) {
+        sistemaServicios.confirmarPedido(p, servicio);
+    }
 }

@@ -11,6 +11,8 @@ import Logica.Cliente;
 import Logica.Item;
 import Logica.Pedido;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -313,10 +315,12 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
             
             String nombreItem = (String) modelo.getValueAt(seleccion, 0);
             String comentario = (String) modelo.getValueAt(seleccion, 1);
+            String estado = (String) modelo.getValueAt(seleccion, 2);
+            String gestor = (String) modelo.getValueAt(seleccion, 4);
             
             Pedido eliminarPedido = null;
             for(Pedido p : controlador.getServicio().getPedidos()){
-                if(p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario)){
+                if(p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario) && p.getEstado().getNombre().equals(estado) && p.getGestor().getNombreCompleto().equals(gestor)){
                     eliminarPedido = p;
                     break;
                 }
@@ -334,7 +338,11 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        try {
+            controlador.confirmarPedidos();
+        } catch (PedidoException ex) {
+            Logger.getLogger(AppCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

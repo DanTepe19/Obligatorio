@@ -37,4 +37,8 @@ public class SistemaServicios extends Observable {
     public int obtenerMontoFinal(Servicio servicio) {
         return servicio.obtenerMontoFinal();
     }
+
+    public void confirmarPedido(Pedido p, Servicio servicio) {
+        servicio.confirmarPedido(p);
+    }
 }

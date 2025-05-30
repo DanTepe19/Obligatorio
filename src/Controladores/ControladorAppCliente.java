@@ -22,7 +22,7 @@ import observer.Observador;
  *
  * @author diego
  */
-public class ControladorAppCliente implements Observador{
+public class ControladorAppCliente implements Observador {
 
     private IVistaAppCliente vista;
     private Cliente cliente;
@@ -68,6 +68,10 @@ public class ControladorAppCliente implements Observador{
         ArrayList<Item> items = f.obtenerItemsPorCategoria(categoria);
         vista.mostrarItems(items);
     }
+    
+    public void seleccionarPedido(String selectedPedido) {
+        
+    }
 
     public Item getItem(String nombreItem) {
         return f.getItem(nombreItem);
@@ -80,9 +84,11 @@ public class ControladorAppCliente implements Observador{
         if (item == null) {
             throw new PedidoException("Debe seleccionar un ítem");
         }
+
+        ArrayList<Pedido> pedidos = servicio.getPedidos();
+        ArrayList<Pedido> pedidosParaEliminar = new ArrayList<>();
+
         if (!item.hayStock()) {
-            ArrayList<Pedido> pedidos = servicio.getPedidos();
-            ArrayList<Pedido> pedidosParaEliminar = new ArrayList<>();
             for (Pedido p : pedidos) {
                 if (p.getItem().equals(item) && p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
                     pedidosParaEliminar.add(p);
@@ -97,31 +103,62 @@ public class ControladorAppCliente implements Observador{
         Pedido nuevoPedido = new Pedido(item, dispositivo, comentario);
         nuevoPedido.agregarObservador(this);
         f.agregarPedido(nuevoPedido, servicio);
-        //f.obtenerMontoFinal(servicio);
-        
+
     }
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-        if(evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)){
+        if (evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)) {
             cargarPedidos();
             cargarMontoTotal();
         }
     }
-    
+
     public void eliminarPedido(Pedido eliminarPedido) throws PedidoException {
-        if(cliente == null){
+        if (cliente == null) {
             throw new PedidoException("Debe identificarse antes de realizar pedidos");
         }
-        if(eliminarPedido == null){
+        if (eliminarPedido == null) {
             throw new PedidoException("Debe seleccionar un pedido");
         }
         f.eliminarPedido(eliminarPedido, servicio);
     }
-    
-    public Servicio getServicio(){
+
+    public Servicio getServicio() {
         return servicio;
     }
-    
+
+    public void confirmarPedidos() throws PedidoException {
+        ArrayList<Pedido> pedidos = servicio.getPedidos();
+
+        if (cliente == null) {
+            throw new PedidoException("Debe identificarse antes de realizar pedidos");
+        }
+        if (pedidos == null || pedidos.isEmpty()) {
+            throw new PedidoException("No hay pedidos nuevos");
+        }
+
+        ArrayList<Pedido> pedidosParaEliminar = new ArrayList<>();
+        boolean huboFalloStock = false;
+        StringBuilder mensajeError = new StringBuilder();
+
+        for (Pedido p : pedidos) {
+            if (!p.getItem().hayStock() && p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
+                pedidosParaEliminar.add(p);
+                huboFalloStock = true;
+                mensajeError.append("Nos hemos quedado sin stock de ")
+                        .append(p.getItem().getNombre())
+                        .append(" y no pudimos avisarte antes!\n");
+            } else if (p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
+                f.confirmarPedidos(p, servicio); // Confirmar los pedidos válidos
+            }
+        }
+
+        pedidos.removeAll(pedidosParaEliminar);
+
+        if (huboFalloStock) {
+            throw new PedidoException(mensajeError.toString().trim());
+        }
+    }
 
 }

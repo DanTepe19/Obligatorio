@@ -86,6 +86,13 @@ public class Servicio extends Observable {
     public int obtenerMontoFinal() {
         return cliente.getTipo().obtenerMontoFinal(this);
     }
+
+    public void confirmarPedido(Pedido p) throws PedidoException {
+        if(p.getEstado().getNombre().equals("NO_CONFIRMADO")){
+            p.confirmar();
+            avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
+        }
+    }
     
     
 }
