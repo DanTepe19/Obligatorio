@@ -75,6 +75,18 @@ public class Item {
     }
     return true;
 }
+
+    public void restarStock() {
+        for(Ingrediente i : ingredientes){
+            i.restarStock();
+        }
+    }
+
+    public void sumarStock() {
+        for(Ingrediente i : ingredientes){
+            i.sumarStock();
+        }
+    }
     
 
 }

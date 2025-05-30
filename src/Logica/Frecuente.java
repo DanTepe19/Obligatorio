@@ -11,14 +11,15 @@ package Logica;
 public class Frecuente extends TipoCliente {
 
     @Override
-    public double calcularDescuento(Servicio servicio) {
-        double descuento = 0;
-        for (Pedido p : servicio.getPedidos()) {
-            if (p.getItem().getNombre().equalsIgnoreCase("Café")) {
-                descuento += p.getItem().getPrecio();
+    public int obtenerMontoFinal(Servicio servicio) {
+        int monto = 0;
+        for(Pedido p : servicio.getPedidos()){
+            if(!p.getItem().getNombre().equals("Café")){
+                monto += p.getItem().getPrecio();
             }
         }
-        return descuento;
+        servicio.setMontoTotal(monto);
+        return monto;
     }
     
 }

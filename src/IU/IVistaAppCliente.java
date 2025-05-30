@@ -18,6 +18,6 @@ public interface IVistaAppCliente {
     void mostrarCategorias(ArrayList<CategoriaItem> categorias);
     void mostrarItems(ArrayList<Item> items);
     void mostrarPedidos(ArrayList<Pedido> pedidos);
-    void mostrarMontoTotal(float montoTotal);
+    void mostrarMontoTotal(int montoTotal);
     
 }

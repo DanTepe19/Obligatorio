@@ -84,4 +84,15 @@ public class Pedido extends Observable{
         estado.entregar(this);
     }
 
+    public void restarStock() {
+        item.restarStock(); 
+        avisar(EventosPedido.CAMBIO_STOCK);
+    }
+
+    public void sumarStock() {
+        item.sumarStock();
+        avisar(EventosPedido.CAMBIO_STOCK);
+    }
+    
+
 }

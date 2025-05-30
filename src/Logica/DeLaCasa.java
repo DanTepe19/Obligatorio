@@ -11,13 +11,20 @@ package Logica;
 public class DeLaCasa extends TipoCliente {
 
     @Override
-    public double calcularDescuento(Servicio servicio) {
-        double total = 0;
+    public int obtenerMontoFinal(Servicio servicio) {
+        int monto = 0;
         for (Pedido p : servicio.getPedidos()) {
-            total += p.getItem().getPrecio();
+            monto += p.getItem().getPrecio();
+        }
+        
+        if(monto < 500){
+            monto = 0;
+        } else {
+            monto = monto - 500;
         }
 
-        return Math.min(500, total);
+        servicio.setMontoTotal(monto);
+        return monto;
     }
     
 }

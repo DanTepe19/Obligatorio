@@ -11,23 +11,18 @@ package Logica;
 public class Preferencial extends TipoCliente {
 
     @Override
-    public double calcularDescuento(Servicio servicio) {
-        double descuento = 0;
-        double total = 0;
-
-        for (Pedido p : servicio.getPedidos()) {
-            Item item = p.getItem();
-            total += item.getPrecio();
-            if (item.getNombre().equalsIgnoreCase("Agua Mineral")) {
-                descuento += item.getPrecio();
+    public int obtenerMontoFinal(Servicio servicio) {
+        int monto = 0;
+        for(Pedido p : servicio.getPedidos()){
+            if(!p.getItem().getNombre().equals("Agua Mineral")){
+                monto += p.getItem().getPrecio();
             }
         }
-
-        if (total > 2000) {
-            descuento += (total - descuento) * 0.05;
+        if(monto > 2000){
+            monto = (int) (monto*0.95);
         }
-
-        return descuento;
+        servicio.setMontoTotal(monto);
+        return monto;
     }
     
 }

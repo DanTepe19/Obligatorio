@@ -32,6 +32,17 @@ public class Ingrediente {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public void restarStock() {
+        insumo.setStockActual(insumo.getStockActual()-cantidad);
+        System.out.println(insumo.getNombre() + "Stock restado:"+insumo.getStockActual());
+    }
+
+    public void sumarStock() {
+        insumo.setStockActual(insumo.getStockActual()+cantidad);
+        System.out.println(insumo.getStockActual());
+        
+    }
     
     
 }

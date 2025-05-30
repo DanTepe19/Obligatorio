@@ -11,8 +11,13 @@ package Logica;
 public class Comun extends TipoCliente {
 
     @Override
-    public double calcularDescuento(Servicio servicio) {
-        return 0;
+    public int obtenerMontoFinal(Servicio servicio) {
+        int monto = 0;
+        for(Pedido p : servicio.getPedidos()){
+            monto += p.getItem().getPrecio();
+        }
+        servicio.setMontoTotal(monto);
+        return monto;
     }
     
 }

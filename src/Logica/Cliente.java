@@ -74,15 +74,5 @@ public class Cliente {
     public void liberarDispositivo() {
         this.dispositivo = null;
     }
-
-    public double calcularMontoFinal() {
-    double total = 0;
-    for (Pedido p : servicio.getPedidos()) {
-        total += p.getItem().getPrecio();
-    }
-
-    double descuento = tipo.calcularDescuento(servicio);
-    return Math.max(0, total - descuento);
-}
     
 }

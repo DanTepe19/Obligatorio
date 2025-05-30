@@ -43,8 +43,6 @@ public class ControladorAppCliente implements Observador{
     private void inicializarVista() {
         cargarCategorias();
         cargarItems();
-        /*cargarPedidos();
-        cargarMontoTotal();*/
     }
 
     Fachada f = Fachada.getInstancia();
@@ -62,7 +60,7 @@ public class ControladorAppCliente implements Observador{
     }
 
     private void cargarMontoTotal() {
-        vista.mostrarMontoTotal(servicio.getMontoTotal());
+        vista.mostrarMontoTotal(servicio.obtenerMontoFinal());
     }
 
     public void seleccionarCategoria(String selectedCategoria) {
@@ -99,6 +97,7 @@ public class ControladorAppCliente implements Observador{
         Pedido nuevoPedido = new Pedido(item, dispositivo, comentario);
         nuevoPedido.agregarObservador(this);
         f.agregarPedido(nuevoPedido, servicio);
+        //f.obtenerMontoFinal(servicio);
         
     }
 
@@ -106,6 +105,7 @@ public class ControladorAppCliente implements Observador{
     public void actualizar(Observable origen, Object evento) {
         if(evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)){
             cargarPedidos();
+            cargarMontoTotal();
         }
     }
     

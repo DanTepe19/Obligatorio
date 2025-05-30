@@ -71,14 +71,20 @@ public class Servicio extends Observable {
         if(nuevoPedido != null){
             pedidos.add(nuevoPedido);
             avisar(EventosPedido.PEDIDO_AGREGADO);
+            nuevoPedido.restarStock();
         }
     }
     
     public void eliminarPedido(Pedido p){
         if(pedidos.remove(p)){
             avisar(EventosPedido.PEDIDO_ELIMINADO);
+            p.sumarStock();
         }
         
+    }
+
+    public int obtenerMontoFinal() {
+        return cliente.getTipo().obtenerMontoFinal(this);
     }
     
     
