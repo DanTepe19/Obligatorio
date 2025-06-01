@@ -28,5 +28,9 @@ public class SistemaDispositivos extends Observable {
     public ArrayList<Dispositivo> getDispositivos(){
         return dispositivos;
     }
+
+    public void liberarDispositivo(Dispositivo dispositivo) {
+        dispositivo.liberar();
+    }
     
 }

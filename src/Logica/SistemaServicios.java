@@ -4,6 +4,7 @@
  */
 package Logica;
 
+import Excepciones.PedidoException;
 import java.util.ArrayList;
 import observer.Observable;
 
@@ -38,7 +39,7 @@ public class SistemaServicios extends Observable {
         return servicio.obtenerMontoFinal();
     }
 
-    public void confirmarPedido(Pedido p, Servicio servicio) {
+    public void confirmarPedido(Pedido p, Servicio servicio) throws PedidoException {
         servicio.confirmarPedido(p);
     }
 }

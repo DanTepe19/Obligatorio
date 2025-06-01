@@ -68,9 +68,9 @@ public class ControladorAppCliente implements Observador {
         ArrayList<Item> items = f.obtenerItemsPorCategoria(categoria);
         vista.mostrarItems(items);
     }
-    
+
     public void seleccionarPedido(String selectedPedido) {
-        
+
     }
 
     public Item getItem(String nombreItem) {
@@ -159,6 +159,25 @@ public class ControladorAppCliente implements Observador {
         if (huboFalloStock) {
             throw new PedidoException(mensajeError.toString().trim());
         }
+    }
+
+    public void finalizarServicio() throws PedidoException {
+        ArrayList<Pedido> pedidos = servicio.getPedidos();
+        ArrayList<Pedido> pedidosSinConfirmar = servicio.getPedidosSinConfirmar();
+        ArrayList<Pedido> pedidosConfirmados = servicio.getPedidosConfirmados();
+        ArrayList<Pedido> pedidosEnProceso = servicio.getPedidosEnProceso();
+
+        if (cliente == null) {
+            throw new PedidoException("Debe identificarse antes de realizar pedidos");
+        } else if (pedidos.isEmpty()) {
+            throw new PedidoException("");
+        } else if (!pedidosSinConfirmar.isEmpty()) {
+            throw new PedidoException("Tienes pedidos sin confirmar!");
+        } else if (!pedidosConfirmados.isEmpty()) {
+            throw new PedidoException("Pago Realizado. Tienes " + pedidosEnProceso.size() + " pedidos en proceso, recuerda ir a retirarlos!");
+        }
+
+        f.liberarDispositivo(dispositivo);
     }
 
 }

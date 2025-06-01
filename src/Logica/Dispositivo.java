@@ -50,6 +50,7 @@ public class Dispositivo extends Observable{
 
     public void asignarCliente(Cliente c) {
         estado.asignarCliente(this, c);
+        avisar(EventosDispositivo.CAMBIO_ESTADO_DISPOSITIVO);
     }
 
     public void liberar() {

@@ -14,11 +14,21 @@ public class Procesadora {
     private String nombre;
     private ArrayList<Item> items;
     private ArrayList<Gestor> gestores;
+    private ArrayList<Pedido> pedidos;
 
     public Procesadora(String nombre, ArrayList<Item> items, ArrayList<Gestor> gestores) {
         this.nombre = nombre;
         this.items = items;
         this.gestores = gestores;
+        this.pedidos = new ArrayList<>();
+    }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(ArrayList<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public String getNombre() {
@@ -47,5 +57,9 @@ public class Procesadora {
     
     public void agregarGestor(Gestor g){
         gestores.add(g);
+    }
+
+    public void agregarPedido(Pedido p) {
+        pedidos.add(p);
     }
 }

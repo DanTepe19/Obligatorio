@@ -151,8 +151,10 @@ public abstract class LoginAbstracto extends javax.swing.JFrame {
         if(usuario == null){
             jLabel5.setText("Credenciales incorrectas");
         } else {
-            jLabel5.setText("Éxito");
             proximoCU(usuario);
+            txtUsuario.setText("");
+            txtPassword.setText("");
+            jLabel5.setText("");
         }
     }
 

@@ -91,7 +91,38 @@ public class Servicio extends Observable {
             p.confirmar();
             avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
             p.restarStock();
+            p.getItem().getProcesadora().agregarPedido(p);
         }
+    }
+    
+    public ArrayList<Pedido> getPedidosSinConfirmar(){
+        ArrayList<Pedido> pedidosSinConfirmar  = new ArrayList<>();
+        for(Pedido p : pedidos){
+            if(p.getEstado().getNombre() == "NO_CONFIRMADO"){
+                pedidosSinConfirmar.add(p);
+            }
+        }
+        return pedidosSinConfirmar;
+    }
+
+    public ArrayList<Pedido> getPedidosConfirmados() {
+        ArrayList<Pedido> pedidosConfirmados  = new ArrayList<>();
+        for(Pedido p : pedidos){
+            if(p.getEstado().getNombre() == "CONFIRMADO"){
+                pedidosConfirmados.add(p);
+            }
+        }
+        return pedidosConfirmados;
+    }
+
+    public ArrayList<Pedido> getPedidosEnProceso() {
+        ArrayList<Pedido> pedidosProcesados  = new ArrayList<>();
+        for(Pedido p : pedidos){
+            if(p.getEstado().getNombre() == "EN_PROCESO"){
+                pedidosProcesados.add(p);
+            }
+        }
+        return pedidosProcesados;
     }
     
     

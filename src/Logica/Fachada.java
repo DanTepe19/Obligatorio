@@ -4,6 +4,7 @@
  */
 package Logica;
 
+import Excepciones.PedidoException;
 import java.util.ArrayList;
 import observer.Observable;
 import observer.Observador;
@@ -78,7 +79,11 @@ public class Fachada extends Observable implements Observador {
         return sistemaServicios.obtenerMontoFinal(servicio);
     }
 
-    public void confirmarPedidos(Pedido p, Servicio servicio) {
+    public void confirmarPedidos(Pedido p, Servicio servicio) throws PedidoException {
         sistemaServicios.confirmarPedido(p, servicio);
+    }
+
+    public void liberarDispositivo(Dispositivo dispositivo) {
+        sistemaDispositivos.liberarDispositivo(dispositivo);
     }
 }

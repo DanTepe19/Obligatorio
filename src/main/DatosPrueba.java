@@ -60,7 +60,7 @@ public class DatosPrueba {
 
         Procesadora cocina = new Procesadora("Cocina", cocinaItems, cocinaGestores);
         Procesadora bar = new Procesadora("Bar", barItems, barGestores);
-        Procesadora barraSushi = new Procesadora("BarraDeSushi", sushiItems, sushiGestores);
+        Procesadora barraSushi = new Procesadora("Barra De Sushi", sushiItems, sushiGestores);
 
         procesadoras.addAll(List.of(cocina, bar, barraSushi));
 

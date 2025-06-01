@@ -304,36 +304,35 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try{
+        try {
             int seleccion = jTable1.getSelectedRow();
-          
-            if(seleccion == -1){
+
+            if (seleccion == -1) {
                 throw new PedidoException("Debe seleccionar un pedido");
             }
-            
+
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-            
+
             String nombreItem = (String) modelo.getValueAt(seleccion, 0);
             String comentario = (String) modelo.getValueAt(seleccion, 1);
             String estado = (String) modelo.getValueAt(seleccion, 2);
             String gestor = (String) modelo.getValueAt(seleccion, 4);
-            
+
             Pedido eliminarPedido = null;
-            for(Pedido p : controlador.getServicio().getPedidos()){
-                if(p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario) && p.getEstado().getNombre().equals(estado)){
+            for (Pedido p : controlador.getServicio().getPedidos()) {
+                if (p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario) && p.getEstado().getNombre().equals(estado)) {
                     eliminarPedido = p;
                     break;
                 }
             }
             controlador.eliminarPedido(eliminarPedido);
-            
+
             jTextArea2.setText("Pedido eliminado: " + nombreItem);
             jList1.clearSelection();
             jList2.clearSelection();
-            
-            
-        }catch (PedidoException ex) {
-           jTextArea2.setText(ex.getMessage());
+
+        } catch (PedidoException ex) {
+            jTextArea2.setText(ex.getMessage());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -346,7 +345,17 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        try {
+            controlador.finalizarServicio();
+            jTextArea2.setText("Pago realizado");
+        } catch (PedidoException ex) {
+            if (ex.getMessage().equals("")) {
+                this.dispose();
+            } else {
+                jTextArea2.setText(ex.getMessage());
+            }
+        }
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

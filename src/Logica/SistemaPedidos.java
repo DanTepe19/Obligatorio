@@ -18,6 +18,7 @@ public class SistemaPedidos extends Observable {
     
     private ArrayList<Pedido> pedidos = new ArrayList();
     private ArrayList<CategoriaItem> categorias = DatosPrueba.getCategorias();
+    private ArrayList<Procesadora> procesadoras = DatosPrueba.getProcesadoras();
     
     public synchronized static SistemaPedidos getInstancia() {
         if (instancia == null) {
