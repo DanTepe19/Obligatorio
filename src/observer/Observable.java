@@ -22,7 +22,7 @@ public class Observable {
         observadores.remove(o);
     }
     
-    protected void avisar(Object evento){
+    public void avisar(Object evento){
         for(Observador o : observadores){
             o.actualizar(this, evento);
         }

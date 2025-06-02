@@ -16,20 +16,20 @@ import observer.Observador;
  *
  * @author diego
  */
-public class ControladorAppGestor implements Observador{
-    
+public class ControladorAppGestor implements Observador {
+
     private Gestor gestor;
     private Procesadora procesadora;
     private IVistaAppGestor vista;
-    
-    public ControladorAppGestor(IVistaAppGestor vista, Gestor gestor){
+
+    public ControladorAppGestor(IVistaAppGestor vista, Gestor gestor) {
         this.vista = vista;
         this.gestor = gestor;
         this.procesadora = gestor.getProcesadora();
-        registrarObservadores();
+        this.procesadora.agregarObservador(this);
         inicializarVista();
     }
-    
+
     private void inicializarVista() {
         cargarPedidosPendientes();
         cargarPedidosGestor();
@@ -37,18 +37,16 @@ public class ControladorAppGestor implements Observador{
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-       if (evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)) {
+
+        if (evento instanceof Pedido p) {
+            p.agregarObservador(this);
+            cargarPedidosPendientes();
+            cargarPedidosGestor();
+        } else if (evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)) {
             cargarPedidosPendientes();
             cargarPedidosGestor();
         }
     }
-    
-    private void registrarObservadores() {
-    for (Pedido p : procesadora.getPedidos()) {
-        p.agregarObservador(this);
-    }
-}
-
 
     private void cargarPedidosPendientes() {
         vista.mostrarPedidosPendientes(procesadora.getPedidos());
@@ -57,5 +55,5 @@ public class ControladorAppGestor implements Observador{
     private void cargarPedidosGestor() {
         vista.mostrarPedidosGestor(gestor.getPedidos());
     }
-    
+
 }

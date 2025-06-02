@@ -29,6 +29,7 @@ public class ControladorAppCliente implements Observador {
     private Dispositivo dispositivo;
     private Servicio servicio;
     private CategoriaItem categoria;
+    private ControladorAppGestor controladorAppGestor;
 
     public ControladorAppCliente(IVistaAppCliente vista, Cliente cliente) {
         this.vista = vista;
@@ -148,9 +149,10 @@ public class ControladorAppCliente implements Observador {
                 huboFalloStock = true;
                 mensajeError.append("Nos hemos quedado sin stock de ")
                         .append(p.getItem().getNombre())
-                        .append(" y no pudimos avisarte antes!\n");
+                        .append(" y no pudimos avisarte antes!");
             } else if (p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
-                f.confirmarPedidos(p, servicio); // Confirmar los pedidos válidos
+                f.confirmarPedidos(p, servicio);
+                p.agregarObservador(controladorAppGestor);
             }
         }
 
@@ -174,7 +176,7 @@ public class ControladorAppCliente implements Observador {
         } else if (!pedidosSinConfirmar.isEmpty()) {
             throw new PedidoException("Tienes pedidos sin confirmar!");
         } else if (!pedidosConfirmados.isEmpty()) {
-            throw new PedidoException("Pago Realizado. Tienes " + pedidosEnProceso.size() + " pedidos en proceso, recuerda ir a retirarlos!");
+            throw new PedidoException("<html>Pago realizado. Tienes " + pedidosEnProceso.size() + " pedidos en proceso, recuerda ir a retirarlos!</html>");
         }
 
         f.liberarDispositivo(dispositivo);

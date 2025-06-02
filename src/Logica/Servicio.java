@@ -89,9 +89,10 @@ public class Servicio extends Observable {
     public void confirmarPedido(Pedido p) throws PedidoException {
         if(p.getEstado().getNombre().equals("NO_CONFIRMADO")){
             p.confirmar();
-            avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
             p.restarStock();
             p.getItem().getProcesadora().agregarPedido(p);
+            p.getItem().getProcesadora().avisar(p);
+            avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
         }
     }
     

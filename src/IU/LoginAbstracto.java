@@ -155,6 +155,7 @@ public abstract class LoginAbstracto extends javax.swing.JFrame {
             txtUsuario.setText("");
             txtPassword.setText("");
             jLabel5.setText("");
+            dispose();
         }
     }
 

@@ -5,12 +5,13 @@
 package Logica;
 
 import java.util.ArrayList;
+import observer.Observable;
 
 /**
  *
  * @author diego
  */
-public class Procesadora {
+public class Procesadora extends Observable {
     private String nombre;
     private ArrayList<Item> items;
     private ArrayList<Gestor> gestores;

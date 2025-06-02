@@ -344,18 +344,22 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             controlador.finalizarServicio();
-            jTextArea2.setText("Pago realizado");
+            Mensaje mensaje = new Mensaje("Pago realizado");
+            mensaje.setVisible(true);
+            dispose();
         } catch (PedidoException ex) {
             if (ex.getMessage().equals("")) {
                 this.dispose();
-            } else {
-                jTextArea2.setText(ex.getMessage());
+            } else if (ex.getMessage().contains("Pago realizado")) {
+                Mensaje mensaje = new Mensaje(ex.getMessage());
+                mensaje.setVisible(true);
+                dispose();
             }
         }
-
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
