@@ -4,17 +4,28 @@
  */
 package IU;
 
+import Controladores.ControladorAppGestor;
+import Logica.Gestor;
+import Logica.Pedido;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author diego
  */
-public class AppGestor extends javax.swing.JFrame {
+public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
 
-    /**
-     * Creates new form AppGestor
-     */
-    public AppGestor() {
+    private ControladorAppGestor controlador;
+    private Gestor gestor;
+    
+    public AppGestor(Gestor gestor) {
         initComponents();
+        this.gestor = gestor;
+        setTitle("Procesar Pedidos");
+        jLabel1.setText("Gestor: " + gestor.getNombreUsuario() + " | Unidad Procesadora: " + gestor.getProcesadora().getNombre());
+        controlador = new ControladorAppGestor(this, gestor);
     }
 
     /**
@@ -152,4 +163,33 @@ public class AppGestor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarPedidosPendientes(ArrayList<Pedido> pedidos) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+
+        for (Pedido p : pedidos) {
+            model.addElement(p.getItem().getNombre() + " - Cliente: " + p.getServicio().getCliente().getNombreCompleto() + " - " + p.getFechaHora().format(formatter));
+        }
+        jList1.setModel(model);
+    }
+
+    @Override
+    public void mostrarPedidosGestor(ArrayList<Pedido> pedidos) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+
+        for (Pedido p : pedidos) {
+            Object[] fila = new Object[]{
+                p.getItem().getNombre(),
+                p.getComentario(),
+                p.getServicio().getCliente().getNombreCompleto(),
+                p.getFechaHora().format(formatter),
+                p.getEstado().getNombre()
+            };
+            model.addRow(fila);
+        }
+    }
 }

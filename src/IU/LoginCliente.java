@@ -25,7 +25,6 @@ public class LoginCliente extends LoginAbstracto{
     @Override
     public void proximoCU(Object usuario) {
         Cliente cliente = (Cliente) usuario;
-        Fachada.getInstancia().realizarPedidos(cliente);
         AppCliente appCliente = new AppCliente(cliente);
         appCliente.setVisible(true);
     }

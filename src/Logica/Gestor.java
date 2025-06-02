@@ -25,6 +25,14 @@ public class Gestor {
         this.pedidos = new ArrayList<>();
     }
     
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(ArrayList<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+    
     public String getNombreUsuario() {
         return nombreUsuario;
     }

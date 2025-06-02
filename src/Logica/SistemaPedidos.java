@@ -35,14 +35,6 @@ public class SistemaPedidos extends Observable {
         return categorias;
     }
 
-    public void realizarPedidos(Cliente cliente) {
-        Servicio s = cliente.getServicio();
-        getCategorias();
-        obtenerItems();
-        s.getPedidos();
-        s.getMontoTotal();
-    }
-
     public ArrayList<Item> obtenerItems() {
         ArrayList<Item> items = new ArrayList();
         for(CategoriaItem c : categorias){

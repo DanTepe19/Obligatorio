@@ -38,10 +38,6 @@ public class Fachada extends Observable implements Observador {
         return sistemaDispositivos.getDispositivos();
     }
     
-    public void realizarPedidos(Cliente cliente){
-        sistemaPedidos.realizarPedidos(cliente);
-    }
-    
     public ArrayList<CategoriaItem> getCategorias(){
         return sistemaPedidos.getCategorias();
     }

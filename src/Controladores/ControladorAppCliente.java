@@ -100,7 +100,7 @@ public class ControladorAppCliente implements Observador {
             throw new PedidoException("Lo sentimos, nos hemos quedado sin stock de " + item.getNombre() + " por lo que lo hemos quitado del pedido del servicio");
         }
 
-        Pedido nuevoPedido = new Pedido(item, dispositivo, comentario);
+        Pedido nuevoPedido = new Pedido(item, comentario, servicio);
         nuevoPedido.agregarObservador(this);
         f.agregarPedido(nuevoPedido, servicio);
 

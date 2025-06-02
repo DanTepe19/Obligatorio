@@ -5,6 +5,7 @@
 package IU;
 
 import Logica.Fachada;
+import Logica.Gestor;
 
 /**
  *
@@ -23,7 +24,9 @@ public class LoginGestor extends LoginAbstracto {
 
     @Override
     public void proximoCU(Object usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Gestor gestor = (Gestor) usuario;
+        AppGestor appGestor = new AppGestor(gestor);
+        appGestor.setVisible(true);
     }
     
 }

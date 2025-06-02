@@ -5,6 +5,7 @@
 package Logica;
 
 import Excepciones.PedidoException;
+import java.time.LocalDateTime;
 import observer.Observable;
 
 /**
@@ -15,16 +16,33 @@ public class Pedido extends Observable{
 
     private Item item;
     private Gestor gestor;
-    private Dispositivo dispositivo;
     private EstadoPedido estado;
     private String comentario;
+    private LocalDateTime fechaHora;
+    private Servicio servicio;
 
-    public Pedido(Item item, Dispositivo dispositivo, String comentario) {
+    public Pedido(Item item, String comentario, Servicio servicio) {
         this.item = item;
-        this.dispositivo = dispositivo;
         this.gestor = null;
         this.estado = new NoConfirmado();
         this.comentario = comentario;
+        this.servicio = servicio;
+    }
+
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+    
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
     public String getComentario() {
@@ -51,14 +69,6 @@ public class Pedido extends Observable{
         this.gestor = gestor;
     }
 
-    public Dispositivo getDispositivo() {
-        return dispositivo;
-    }
-
-    public void setDispositivo(Dispositivo dispositivo) {
-        this.dispositivo = dispositivo;
-    }
-
     public EstadoPedido getEstado() {
         return estado;
     }
@@ -70,6 +80,7 @@ public class Pedido extends Observable{
 
     public void confirmar() throws PedidoException {
         estado.confirmar(this);
+        this.fechaHora = LocalDateTime.now();
     }
 
     public void asignarGestor(Gestor gestor) throws PedidoException {
