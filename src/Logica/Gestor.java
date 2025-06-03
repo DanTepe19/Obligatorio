@@ -4,6 +4,7 @@
  */
 package Logica;
 
+import Excepciones.PedidoException;
 import java.util.ArrayList;
 
 /**
@@ -11,6 +12,7 @@ import java.util.ArrayList;
  * @author diego
  */
 public class Gestor {
+
     private String nombreUsuario;
     private String password;
     private String nombreCompleto;
@@ -24,7 +26,7 @@ public class Gestor {
         this.procesadora = procesadora;
         this.pedidos = new ArrayList<>();
     }
-    
+
     public ArrayList<Pedido> getPedidos() {
         return pedidos;
     }
@@ -32,7 +34,7 @@ public class Gestor {
     public void setPedidos(ArrayList<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
-    
+
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -64,10 +66,15 @@ public class Gestor {
     public void setProcesadora(Procesadora procesadora) {
         this.procesadora = procesadora;
     }
-    
-    public void agregarPedido(Pedido p){
+
+    public void agregarPedido(Pedido p) {
         pedidos.add(p);
     }
-    
-    
+
+    public void tomarPedido(Pedido pedidoSeleccionado) throws PedidoException {
+        pedidoSeleccionado.getEstado().asignarGestor(pedidoSeleccionado, this);
+        pedidos.add(pedidoSeleccionado);
+        procesadora.eliminarPedido(pedidoSeleccionado);
+    }
+
 }

@@ -15,8 +15,11 @@ public class Observable {
     private ArrayList<Observador> observadores = new ArrayList<Observador>();
 
     public void agregarObservador(Observador o) {
+    if (o != null) {
         observadores.add(o);
     }
+       
+}
 
     public void removerObservador(Observador o) {
         observadores.remove(o);

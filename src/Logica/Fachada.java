@@ -82,4 +82,8 @@ public class Fachada extends Observable implements Observador {
     public void liberarDispositivo(Dispositivo dispositivo) {
         sistemaDispositivos.liberarDispositivo(dispositivo);
     }
+
+    public void tomarPedido(Pedido pedidoSeleccionado, Gestor gestor) throws PedidoException {
+        sistemaPedidos.tomarPedido(pedidoSeleccionado, gestor);
+    }
 }

@@ -4,8 +4,10 @@
  */
 package Controladores;
 
+import Excepciones.PedidoException;
 import IU.IVistaAppGestor;
 import Logica.EventosPedido;
+import Logica.Fachada;
 import Logica.Gestor;
 import Logica.Pedido;
 import Logica.Procesadora;
@@ -34,6 +36,8 @@ public class ControladorAppGestor implements Observador {
         cargarPedidosPendientes();
         cargarPedidosGestor();
     }
+    
+    Fachada f = Fachada.getInstancia();
 
     @Override
     public void actualizar(Observable origen, Object evento) {
@@ -54,6 +58,13 @@ public class ControladorAppGestor implements Observador {
 
     private void cargarPedidosGestor() {
         vista.mostrarPedidosGestor(gestor.getPedidos());
+    }
+
+    public void tomarPedido(Pedido pedidoSeleccionado) throws PedidoException {
+        if(pedidoSeleccionado == null){
+            throw new PedidoException ("Debe seleccionar un pedido");
+        }
+        f.tomarPedido(pedidoSeleccionado, gestor);
     }
 
 }

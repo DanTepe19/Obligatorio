@@ -4,6 +4,7 @@
  */
 package Logica;
 
+import Excepciones.PedidoException;
 import java.util.ArrayList;
 import main.DatosPrueba;
 import observer.Observable;
@@ -75,6 +76,10 @@ public class SistemaPedidos extends Observable {
             }
         }
         return null;
+    }
+
+    public void tomarPedido(Pedido pedidoSeleccionado, Gestor gestor) throws PedidoException {
+        gestor.tomarPedido(pedidoSeleccionado);
     }
     
 }

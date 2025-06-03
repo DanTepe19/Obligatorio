@@ -63,4 +63,9 @@ public class Procesadora extends Observable {
     public void agregarPedido(Pedido p) {
         pedidos.add(p);
     }
+
+    public void eliminarPedido(Pedido pedidoSeleccionado) {
+        pedidos.remove(pedidoSeleccionado);
+        avisar(EventosPedido.PEDIDO_ELIMINADO);
+    }
 }
