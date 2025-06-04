@@ -4,6 +4,7 @@
  */
 package IU;
 
+import Excepciones.ClienteException;
 import Logica.Cliente;
 import Logica.Fachada;
 
@@ -18,7 +19,7 @@ public class LoginCliente extends LoginAbstracto{
     }
 
     @Override
-    public Object llamarLogin(String usuario, String password) {
+    public Object llamarLogin(String usuario, String password) throws ClienteException{
         return Fachada.getInstancia().loginCliente(usuario, password);
     }
 

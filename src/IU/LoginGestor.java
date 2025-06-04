@@ -4,6 +4,7 @@
  */
 package IU;
 
+import Excepciones.GestorException;
 import Logica.Fachada;
 import Logica.Gestor;
 
@@ -18,7 +19,7 @@ public class LoginGestor extends LoginAbstracto {
     }
 
     @Override
-    public Object llamarLogin(String usuario, String password) {
+    public Object llamarLogin(String usuario, String password) throws GestorException {
         return Fachada.getInstancia().loginGestor(usuario, password);
     }
 

@@ -4,6 +4,8 @@
  */
 package IU;
 
+import Excepciones.ClienteException;
+import Excepciones.GestorException;
 import Logica.Gestor;
 
 /**
@@ -143,24 +145,27 @@ public abstract class LoginAbstracto extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    private void login(){
-        String usu = txtUsuario.getText();
-        String password = new String(txtPassword.getPassword());
-        
+    
+    private void login() {
+    String usu = txtUsuario.getText();
+    String password = new String(txtPassword.getPassword());
+    jLabel5.setText("");
+
+    try {
         Object usuario = llamarLogin(usu, password);
-        if(usuario == null){
-            jLabel5.setText("Credenciales incorrectas");
-        } else {
-            proximoCU(usuario);
-            txtUsuario.setText("");
-            txtPassword.setText("");
-            jLabel5.setText("");
-            dispose();
-        }
+        proximoCU(usuario);
+        txtUsuario.setText("");
+        txtPassword.setText("");
+        jLabel5.setText("");
+        dispose();
+    } catch (ClienteException | GestorException ex) {
+        jLabel5.setText(ex.getMessage());
     }
+}
 
 
-    public abstract Object llamarLogin(String cedula, String password);
+
+    public abstract Object llamarLogin(String cedula, String password) throws ClienteException, GestorException;
     public abstract void proximoCU(Object usuario);
    
 
