@@ -81,5 +81,13 @@ public class SistemaPedidos extends Observable {
     public void tomarPedido(Pedido pedidoSeleccionado, Gestor gestor) throws PedidoException {
         gestor.tomarPedido(pedidoSeleccionado);
     }
+
+    public void finalizarPedido(Pedido pedido) throws PedidoException{
+        pedido.getEstado().finalizar(pedido);
+    }
+
+    public void entregarPedido(Pedido pedido) throws PedidoException {
+        pedido.getEstado().entregar(pedido);
+    }
     
 }

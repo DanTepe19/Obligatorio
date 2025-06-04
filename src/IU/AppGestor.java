@@ -11,6 +11,7 @@ import Logica.Pedido;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,7 +27,7 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
         initComponents();
         this.gestor = gestor;
         setTitle("Procesar Pedidos");
-        jLabel1.setText("Gestor: " + gestor.getNombreUsuario() + " | Unidad Procesadora: " + gestor.getProcesadora().getNombre());
+        jLabel1.setText("Gestor: " + gestor.getNombreCompleto() + " | Unidad Procesadora: " + gestor.getProcesadora().getNombre());
         controlador = new ControladorAppGestor(this, gestor);
     }
 
@@ -96,8 +97,6 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
             }
         });
 
-        jLabel2.setText("jLabel2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,11 +145,68 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            int seleccion = jTable1.getSelectedRow();
 
+            if (seleccion == -1) {
+                throw new PedidoException("Debe seleccionar un pedido");
+            }
+
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            String nombreItem = (String) modelo.getValueAt(seleccion, 0);
+            String comentario = (String) modelo.getValueAt(seleccion, 1);
+            String estado = (String) modelo.getValueAt(seleccion, 4);
+
+            Pedido pedidoAfinalizar = null;
+            for (Pedido p : gestor.getPedidos()) {
+                if (p.getItem().getNombre().equals(nombreItem)
+                        && p.getComentario().equals(comentario)
+                        && p.getEstado().getNombre().equals(estado)) {
+                    pedidoAfinalizar = p;
+                    break;
+                }
+            }
+
+            controlador.finalizarPedido(pedidoAfinalizar);
+            mostrarMensaje(pedidoAfinalizar);
+            jLabel2.setText("Pedido finalizado correctamente: " + nombreItem);
+
+        } catch (PedidoException ex) {
+            jLabel2.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            int seleccion = jTable1.getSelectedRow();
 
+            if (seleccion == -1) {
+                throw new PedidoException("Debe seleccionar un pedido");
+            }
+
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            String nombreItem = (String) modelo.getValueAt(seleccion, 0);
+            String comentario = (String) modelo.getValueAt(seleccion, 1);
+            String estado = (String) modelo.getValueAt(seleccion, 4);
+
+            Pedido pedido = null;
+            for (Pedido p : gestor.getPedidos()) {
+                if (p.getItem().getNombre().equals(nombreItem)
+                        && p.getComentario().equals(comentario)
+                        && p.getEstado().getNombre().equals(estado)) {
+                    pedido = p;
+                    break;
+                }
+            }
+
+            controlador.entregarPedido(pedido);
+            jLabel2.setText("Pedido entregado: " + nombreItem);
+
+        } catch (PedidoException ex) {
+            jLabel2.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -208,6 +264,16 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
                 p.getEstado().getNombre()
             };
             model.addRow(fila);
+        }
+    }
+    
+    @Override
+    public void mostrarMensaje(Pedido pedidoAfinalizar) {
+        if (pedidoAfinalizar.getEstado().getNombre().equals("FINALIZADO")
+                && pedidoAfinalizar.getServicio().getCliente().getDispositivo() == null) {
+            String mensaje = "<html>El pedido '" + pedidoAfinalizar.getItem().getNombre() + "' del cliente "
+                    + pedidoAfinalizar.getServicio().getCliente().getNombreCompleto() + " ya está finalizado.</html>";
+            new Mensaje(mensaje).setVisible(true);
         }
     }
 }

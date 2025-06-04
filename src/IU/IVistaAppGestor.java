@@ -15,5 +15,6 @@ public interface IVistaAppGestor {
     
     void mostrarPedidosPendientes(ArrayList<Pedido> pedidos);
     void mostrarPedidosGestor(ArrayList<Pedido> pedidos);
+    void mostrarMensaje(Pedido pedido);
     
 }

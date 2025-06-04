@@ -316,11 +316,12 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
             String nombreItem = (String) modelo.getValueAt(seleccion, 0);
             String comentario = (String) modelo.getValueAt(seleccion, 1);
             String estado = (String) modelo.getValueAt(seleccion, 2);
-            String gestor = (String) modelo.getValueAt(seleccion, 4);
 
             Pedido eliminarPedido = null;
             for (Pedido p : controlador.getServicio().getPedidos()) {
-                if (p.getItem().getNombre().equals(nombreItem) && p.getComentario().equals(comentario) && p.getEstado().getNombre().equals(estado)) {
+                if (p.getItem().getNombre().equals(nombreItem)
+                        && p.getComentario().equals(comentario)
+                        && p.getEstado().getNombre().equals(estado)) {
                     eliminarPedido = p;
                     break;
                 }
@@ -426,5 +427,10 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
     @Override
     public void mostrarMontoTotal(int montoTotal) {
         jLabel4.setText("Monto Final: " + montoTotal);
+    }
+
+    @Override
+    public void mostrarNotificacion(String mensaje) {
+        jTextArea2.setText(mensaje);
     }
 }

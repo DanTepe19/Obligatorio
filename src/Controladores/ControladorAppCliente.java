@@ -109,7 +109,14 @@ public class ControladorAppCliente implements Observador {
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-        if (evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)) {
+        if (origen instanceof Pedido pedido && evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO)) {
+            if (pedido.getEstado().getNombre().equals("FINALIZADO")) {
+                String mensaje = "Tu pedido '" + pedido.getItem().getNombre() + "' ha sido finalizado. ¡Ya podés retirarlo!";
+                    vista.mostrarNotificacion(mensaje);
+            }
+            cargarPedidos();
+            cargarMontoTotal();
+        } else if (evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)) {
             cargarPedidos();
             cargarMontoTotal();
         }
@@ -166,7 +173,6 @@ public class ControladorAppCliente implements Observador {
     public void finalizarServicio() throws PedidoException {
         ArrayList<Pedido> pedidos = servicio.getPedidos();
         ArrayList<Pedido> pedidosSinConfirmar = servicio.getPedidosSinConfirmar();
-        ArrayList<Pedido> pedidosConfirmados = servicio.getPedidosConfirmados();
         ArrayList<Pedido> pedidosEnProceso = servicio.getPedidosEnProceso();
 
         if (cliente == null) {
@@ -175,7 +181,7 @@ public class ControladorAppCliente implements Observador {
             throw new PedidoException("");
         } else if (!pedidosSinConfirmar.isEmpty()) {
             throw new PedidoException("Tienes pedidos sin confirmar!");
-        } else if (!pedidosConfirmados.isEmpty()) {
+        } else if (!pedidosEnProceso.isEmpty()) {
             throw new PedidoException("<html>Pago realizado. Tienes " + pedidosEnProceso.size() + " pedidos en proceso, recuerda ir a retirarlos!</html>");
         }
 

@@ -19,5 +19,6 @@ public interface IVistaAppCliente {
     void mostrarItems(ArrayList<Item> items);
     void mostrarPedidos(ArrayList<Pedido> pedidos);
     void mostrarMontoTotal(int montoTotal);
+    void mostrarNotificacion(String mensaje);
     
 }
