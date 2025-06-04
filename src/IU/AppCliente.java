@@ -24,6 +24,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     private ControladorAppCliente controlador;
     private Cliente cliente;
+    private ArrayList<Pedido> pedidosMostrados = new ArrayList<>();
 
     public AppCliente(Cliente cliente) {
         initComponents();
@@ -311,24 +312,10 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
                 throw new PedidoException("Debe seleccionar un pedido");
             }
 
-            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
-            String nombreItem = (String) modelo.getValueAt(seleccion, 0);
-            String comentario = (String) modelo.getValueAt(seleccion, 1);
-            String estado = (String) modelo.getValueAt(seleccion, 2);
-
-            Pedido eliminarPedido = null;
-            for (Pedido p : controlador.getServicio().getPedidos()) {
-                if (p.getItem().getNombre().equals(nombreItem)
-                        && p.getComentario().equals(comentario)
-                        && p.getEstado().getNombre().equals(estado)) {
-                    eliminarPedido = p;
-                    break;
-                }
-            }
+            Pedido eliminarPedido = pedidosMostrados.get(seleccion);
             controlador.eliminarPedido(eliminarPedido);
 
-            jTextArea2.setText("Pedido eliminado: " + nombreItem);
+            jTextArea2.setText("Pedido eliminado: " + eliminarPedido.getItem().getNombre());
             jList1.clearSelection();
             jList2.clearSelection();
 
@@ -408,7 +395,8 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     @Override
     public void mostrarPedidos(ArrayList<Pedido> pedidos) {
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        pedidosMostrados = pedidos;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
 
         for (Pedido p : pedidos) {
