@@ -318,7 +318,6 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
             jTextArea2.setText("Pedido eliminado: " + eliminarPedido.getItem().getNombre());
             jList1.clearSelection();
             jList2.clearSelection();
-
         } catch (PedidoException ex) {
             jTextArea2.setText(ex.getMessage());
         }
