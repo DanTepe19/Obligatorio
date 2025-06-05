@@ -29,6 +29,16 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
         setTitle("Procesar Pedidos");
         jLabel1.setText("Gestor: " + gestor.getNombreCompleto() + " | Unidad Procesadora: " + gestor.getProcesadora().getNombre());
         controlador = new ControladorAppGestor(this, gestor);
+
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Evita el cierre automático
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                verificarCierre();
+            }
+        });
+
     }
 
     /**
@@ -270,14 +280,33 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
             model.addRow(fila);
         }
     }
-    
+
     @Override
     public void mostrarMensaje(Pedido pedidoAfinalizar) {
         if (pedidoAfinalizar.getEstado().getNombre().equals("FINALIZADO")
                 && pedidoAfinalizar.getServicio().getCliente().getDispositivo() == null) {
-            String mensaje = "<html>El pedido '" + pedidoAfinalizar.getItem().getNombre() + "' del cliente "
-                    + pedidoAfinalizar.getServicio().getCliente().getNombreCompleto() + " ya está finalizado.</html>";
+            String mensaje = "El pedido '" + pedidoAfinalizar.getItem().getNombre() + "' del cliente "
+                    + pedidoAfinalizar.getServicio().getCliente().getNombreCompleto() + " ya está finalizado.";
             new Mensaje(mensaje).setVisible(true);
         }
     }
+
+    private void verificarCierre() {
+        boolean tienePedidosPendientes = false;
+
+        for (Pedido p : gestor.getPedidos()) {
+            String estado = p.getEstado().getNombre();
+            if (!estado.equals("ENTREGADO")) {
+                tienePedidosPendientes = true;
+                break;
+            }
+        }
+
+        if (tienePedidosPendientes) {
+            jLabel2.setText("Tiene pedidos pendientes");
+        } else {
+            this.dispose();
+        }
+    }
+
 }
