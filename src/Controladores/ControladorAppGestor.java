@@ -36,6 +36,7 @@ public class ControladorAppGestor implements Observador {
     private void inicializarVista() {
         cargarPedidosPendientes();
         cargarPedidosGestor();
+        registrarObservadoresEnPedidos();
     }
 
     Fachada f = Fachada.getInstancia();
@@ -44,9 +45,9 @@ public class ControladorAppGestor implements Observador {
     public void actualizar(Observable origen, Object evento) {
 
         if (evento instanceof Pedido p) {
-            p.agregarObservador(this);            
+            p.agregarObservador(this);
             cargarPedidosPendientes();
-            cargarPedidosGestor();            
+            cargarPedidosGestor();
         } else if (evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)) {
             cargarPedidosPendientes();
             cargarPedidosGestor();
@@ -80,7 +81,7 @@ public class ControladorAppGestor implements Observador {
         }
 
         f.finalizarPedido(pedido);
-        
+
     }
 
     public void entregarPedido(Pedido pedido) throws PedidoException {
@@ -96,5 +97,18 @@ public class ControladorAppGestor implements Observador {
 
         f.entregarPedido(pedido);
     }
-}
 
+    private void registrarObservadoresEnPedidos() {
+        for (Pedido p : procesadora.getPedidos()) {
+            if (!p.tieneObservador(this)) {
+                p.agregarObservador(this);
+            }
+        }
+        for (Pedido p : gestor.getPedidos()) {
+            if (!p.tieneObservador(this)) {
+                p.agregarObservador(this);
+            }
+        }
+    }
+
+}

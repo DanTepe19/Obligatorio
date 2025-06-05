@@ -4,6 +4,8 @@
  */
 package Logica;
 
+import Excepciones.ClienteException;
+import Excepciones.GestorException;
 import Excepciones.PedidoException;
 import java.util.ArrayList;
 import observer.Observable;
@@ -26,11 +28,11 @@ public class Fachada extends Observable implements Observador {
         return instancia;
     }
     
-    public Gestor loginGestor(String usuario, String password){
+    public Gestor loginGestor(String usuario, String password) throws GestorException{
         return sistemaGestores.loginGestor(usuario, password);
     }
     
-    public Cliente loginCliente(String usuario, String password){
+    public Cliente loginCliente(String usuario, String password) throws ClienteException{
         return sistemaClientes.loginCliente(usuario, password, getDispositivos());
     }
     
@@ -93,5 +95,13 @@ public class Fachada extends Observable implements Observador {
 
     public void entregarPedido(Pedido pedido) throws PedidoException {
         sistemaPedidos.entregarPedido(pedido);
+    }
+    
+    public void cerrarSesion(Object usuario){
+        if(usuario instanceof Cliente){
+            sistemaClientes.cerrarSesion(usuario);
+        } else {
+            sistemaGestores.cerrarSesion(usuario);
+        }
     }
 }

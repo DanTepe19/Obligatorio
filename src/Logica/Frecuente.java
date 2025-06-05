@@ -18,8 +18,23 @@ public class Frecuente extends TipoCliente {
                 monto += p.getItem().getPrecio();
             }
         }
+        servicio.setMontoFinal(monto);
+        return monto;
+    }
+
+    @Override
+    public int obtenerMontoTotal(Servicio servicio) {
+        int monto = 0;
+        for (Pedido p : servicio.getPedidos()) {
+            monto += p.getItem().getPrecio();
+        }
         servicio.setMontoTotal(monto);
         return monto;
+    }
+
+    @Override
+    public String obtenerDescripcionDescuento(int monto) {
+        return "Paga $0 por todos los cafés consumidos.";
     }
     
 }

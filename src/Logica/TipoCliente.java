@@ -11,5 +11,7 @@ package Logica;
 public abstract class TipoCliente {
     
     public abstract int obtenerMontoFinal(Servicio servicio);
+    public abstract int obtenerMontoTotal(Servicio servicio);
+    public abstract String obtenerDescripcionDescuento(int monto);
     
 }

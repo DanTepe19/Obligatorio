@@ -12,6 +12,16 @@ public class Comun extends TipoCliente {
 
     @Override
     public int obtenerMontoFinal(Servicio servicio) {
+        return 0;
+    }
+
+    @Override
+    public String obtenerDescripcionDescuento(int monto) {
+        return "";
+    }
+
+    @Override
+    public int obtenerMontoTotal(Servicio servicio) {
         int monto = 0;
         for(Pedido p : servicio.getPedidos()){
             monto += p.getItem().getPrecio();

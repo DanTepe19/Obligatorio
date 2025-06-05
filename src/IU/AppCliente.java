@@ -334,18 +334,16 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            controlador.finalizarServicio();
-            Mensaje mensaje = new Mensaje("Pago realizado");
-            mensaje.setVisible(true);
+            String mensaje = controlador.finalizarServicio(); // recibe todo
+            Mensaje m = new Mensaje(mensaje);
+            m.setVisible(true);
             dispose();
         } catch (PedidoException ex) {
-            if (ex.getMessage().equals("")) {
-                this.dispose();
-            } else if (ex.getMessage().contains("Pago realizado")) {
-                Mensaje mensaje = new Mensaje(ex.getMessage());
-                mensaje.setVisible(true);
-                dispose();
+            if (!ex.getMessage().isEmpty()) {
+                Mensaje m = new Mensaje(ex.getMessage());
+                m.setVisible(true);
             }
+            dispose();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -413,11 +411,16 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     @Override
     public void mostrarMontoTotal(int montoTotal) {
-        jLabel4.setText("Monto Final: " + montoTotal);
+        jLabel4.setText("Monto Total: " + montoTotal);
     }
 
     @Override
     public void mostrarNotificacion(String mensaje) {
         jTextArea2.setText(mensaje);
+    }
+
+    @Override
+    public void mostrarDatosBeneficio(String mensaje) {
+
     }
 }

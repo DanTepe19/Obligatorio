@@ -18,12 +18,22 @@ public class Servicio extends Observable {
     private EstadoServicio estado;
     private ArrayList<Pedido> pedidos;
     private int montoTotal;
+    private int montoFinal;
 
     public Servicio(Cliente cliente) {
         this.cliente = cliente;
         this.estado = new Activo();
         this.pedidos = new ArrayList<>();
         this.montoTotal = 0;
+        this.montoFinal = 0;
+    }
+
+    public int getMontoFinal() {
+        return montoFinal;
+    }
+
+    public void setMontoFinal(int montoFinal) {
+        this.montoFinal = montoFinal;
     }
 
     public Cliente getCliente() {
@@ -84,6 +94,14 @@ public class Servicio extends Observable {
 
     public int obtenerMontoFinal() {
         return cliente.getTipo().obtenerMontoFinal(this);
+    }
+    
+    public int obtenerMontoTotal() {
+        return cliente.getTipo().obtenerMontoTotal(this);
+    }
+    
+    public String obtenerDescripcionDescuento(){
+        return cliente.getTipo().obtenerDescripcionDescuento(montoTotal);
     }
 
     public void confirmarPedido(Pedido p) throws PedidoException {

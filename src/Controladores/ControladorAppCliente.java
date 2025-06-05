@@ -8,6 +8,7 @@ import Excepciones.PedidoException;
 import IU.IVistaAppCliente;
 import Logica.CategoriaItem;
 import Logica.Cliente;
+import Logica.Comun;
 import Logica.Dispositivo;
 import Logica.EventosPedido;
 import Logica.Servicio;
@@ -61,17 +62,29 @@ public class ControladorAppCliente implements Observador {
     }
 
     private void cargarMontoTotal() {
-        vista.mostrarMontoTotal(servicio.obtenerMontoFinal());
+        vista.mostrarMontoTotal(servicio.obtenerMontoTotal());
+    }
+
+    private String obtenerDatosBeneficio() {
+        String mensaje = "";
+        if(cliente.getTipo() instanceof Comun){
+            mensaje += "El monto final es: $";
+        } else {
+            mensaje += "El monto del beneficio es: $";
+        }
+        int montoTotal = servicio.obtenerMontoTotal();
+        int montoFinal = servicio.obtenerMontoFinal();
+        int beneficio = montoTotal - montoFinal;
+        mensaje += beneficio + ". ";
+        mensaje += servicio.obtenerDescripcionDescuento();
+
+        return mensaje;
     }
 
     public void seleccionarCategoria(String selectedCategoria) {
         categoria = f.getCategoria(selectedCategoria);
         ArrayList<Item> items = f.obtenerItemsPorCategoria(categoria);
         vista.mostrarItems(items);
-    }
-
-    public void seleccionarPedido(String selectedPedido) {
-
     }
 
     public Item getItem(String nombreItem) {
@@ -112,7 +125,7 @@ public class ControladorAppCliente implements Observador {
         if (origen instanceof Pedido pedido && evento.equals(EventosPedido.CAMBIO_ESTADO_PEDIDO)) {
             if (pedido.getEstado().getNombre().equals("FINALIZADO")) {
                 String mensaje = "Tu pedido '" + pedido.getItem().getNombre() + "' ha sido finalizado. ¡Ya podés retirarlo!";
-                    vista.mostrarNotificacion(mensaje);
+                vista.mostrarNotificacion(mensaje);
             }
             cargarPedidos();
             cargarMontoTotal();
@@ -170,7 +183,7 @@ public class ControladorAppCliente implements Observador {
         }
     }
 
-    public void finalizarServicio() throws PedidoException {
+    public String finalizarServicio() throws PedidoException {
         ArrayList<Pedido> pedidos = servicio.getPedidos();
         ArrayList<Pedido> pedidosSinConfirmar = servicio.getPedidosSinConfirmar();
         ArrayList<Pedido> pedidosEnProceso = servicio.getPedidosEnProceso();
@@ -181,11 +194,20 @@ public class ControladorAppCliente implements Observador {
             throw new PedidoException("");
         } else if (!pedidosSinConfirmar.isEmpty()) {
             throw new PedidoException("Tienes pedidos sin confirmar!");
-        } else if (!pedidosEnProceso.isEmpty()) {
-            throw new PedidoException("<html>Pago realizado. Tienes " + pedidosEnProceso.size() + " pedidos en proceso, recuerda ir a retirarlos!</html>");
         }
 
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append(obtenerDatosBeneficio()).append("\n");
+        if (!pedidosEnProceso.isEmpty()) {
+            mensaje.append("Tenés ").append(pedidosEnProceso.size())
+                    .append(" pedidos en proceso. ¡Recordá ir a retirarlos!");
+        } else {
+            mensaje.append("Pago realizado.");
+        }
+                
         f.liberarDispositivo(dispositivo);
+        f.cerrarSesion(cliente);
+        return mensaje.toString();
     }
 
 }

@@ -15,19 +15,23 @@ public class Observable {
     private ArrayList<Observador> observadores = new ArrayList<Observador>();
 
     public void agregarObservador(Observador o) {
-    if (o != null) {
-        observadores.add(o);
+        if (o != null) {
+            observadores.add(o);
+        }
     }
-       
-}
 
     public void removerObservador(Observador o) {
         observadores.remove(o);
     }
-    
-    public void avisar(Object evento){
-        for(Observador o : observadores){
+
+    public void avisar(Object evento) {
+        for (Observador o : observadores) {
             o.actualizar(this, evento);
         }
     }
+
+    public boolean tieneObservador(Observador o) {
+        return observadores.contains(o);
+    }
+
 }

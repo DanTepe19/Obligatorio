@@ -171,9 +171,10 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
             controlador.finalizarPedido(pedidoAfinalizar);
             mostrarMensaje(pedidoAfinalizar);
             jLabel2.setText("Pedido finalizado correctamente: " + nombreItem);
-
+            jTable1.clearSelection();
         } catch (PedidoException ex) {
             jLabel2.setText(ex.getMessage());
+            jTable1.clearSelection();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -203,9 +204,10 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
 
             controlador.entregarPedido(pedido);
             jLabel2.setText("Pedido entregado: " + nombreItem);
-
+            jTable1.clearSelection();
         } catch (PedidoException ex) {
             jLabel2.setText(ex.getMessage());
+            jTable1.clearSelection();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -215,9 +217,11 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
             if (seleccion != -1 && seleccion < pedidosVisibles.size()) {
                 Pedido pedidoSeleccionado = pedidosVisibles.get(seleccion);
                 controlador.tomarPedido(pedidoSeleccionado);
+                jList1.clearSelection();
             }
         } catch (PedidoException ex) {
             jLabel2.setText(ex.getMessage());
+            jList1.clearSelection();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
