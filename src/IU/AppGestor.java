@@ -274,7 +274,7 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
         model.setRowCount(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
 
-        for (Pedido p : pedidos) {
+        for (Pedido p : pedidos) {            
             Object[] fila = new Object[]{
                 p.getItem().getNombre(),
                 p.getComentario(),

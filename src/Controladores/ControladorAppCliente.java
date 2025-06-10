@@ -75,15 +75,15 @@ public class ControladorAppCliente implements Observador {
 
     private String obtenerDatosBeneficio() {
         String mensaje = "";
-        if (cliente.getTipo() instanceof Comun) {
-            mensaje += "El monto final es: $";
-        } else {
-            mensaje += "El monto del beneficio es: $";
-        }
         int montoTotal = servicio.obtenerMontoTotal();
         int montoFinal = servicio.obtenerMontoFinal();
         int beneficio = montoTotal - montoFinal;
-        mensaje += beneficio + ". ";
+        if (cliente.getTipo() instanceof Comun) {
+            mensaje += "El monto final es: $";
+        } else {
+            mensaje += "El monto final es: $" + montoFinal + ". ";
+            mensaje += "El monto del beneficio es: $" + beneficio + ". ";
+        }
         mensaje += servicio.obtenerDescripcionDescuento();
 
         return mensaje;
