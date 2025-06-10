@@ -305,6 +305,7 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
         if (tienePedidosPendientes) {
             jLabel2.setText("Tiene pedidos pendientes");
         } else {
+            controlador.cerrarSesion(gestor);
             this.dispose();
         }
     }

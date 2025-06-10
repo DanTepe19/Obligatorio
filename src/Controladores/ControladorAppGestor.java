@@ -111,4 +111,8 @@ public class ControladorAppGestor implements Observador {
         }
     }
 
+    public void cerrarSesion(Gestor gestor) {
+        f.cerrarSesion(gestor);
+    }
+
 }
