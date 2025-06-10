@@ -188,6 +188,8 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         ));
         jScrollPane4.setViewportView(jTable1);
 
+        jLabel4.setText("Monto Total: $0");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -411,7 +413,7 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     @Override
     public void mostrarMontoTotal(int montoTotal) {
-        jLabel4.setText("Monto Total: " + montoTotal);
+        jLabel4.setText("Monto Total: $" + montoTotal);
     }
 
     @Override

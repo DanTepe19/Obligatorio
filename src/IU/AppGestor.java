@@ -30,7 +30,7 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
         jLabel1.setText("Gestor: " + gestor.getNombreCompleto() + " | Unidad Procesadora: " + gestor.getProcesadora().getNombre());
         controlador = new ControladorAppGestor(this, gestor);
 
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Evita el cierre automático
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

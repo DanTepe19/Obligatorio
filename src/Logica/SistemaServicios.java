@@ -32,6 +32,7 @@ public class SistemaServicios extends Observable {
     public void eliminarPedido(Pedido eliminarPedido, Servicio servicio){
         if( servicio != null){
             servicio.eliminarPedido(eliminarPedido);
+            eliminarPedido.getItem().getProcesadora().eliminarPedido(eliminarPedido);
         }
     }
 

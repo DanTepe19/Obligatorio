@@ -362,6 +362,9 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Monto Total: $0"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
