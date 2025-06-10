@@ -61,13 +61,21 @@ public class ControladorAppCliente implements Observador {
         vista.mostrarPedidos(servicio.getPedidos());
     }
 
+    private void cargarPedidosConfirmados() {
+        vista.mostrarPedidos(servicio.getPedidosConfirmados());
+    }
+
     private void cargarMontoTotal() {
         vista.mostrarMontoTotal(servicio.obtenerMontoTotal());
     }
 
+    private void cargarMontoTotalConfirmados() {
+        vista.mostrarMontoTotal(servicio.obtenerMontoTotalConfirmados());
+    }
+
     private String obtenerDatosBeneficio() {
         String mensaje = "";
-        if(cliente.getTipo() instanceof Comun){
+        if (cliente.getTipo() instanceof Comun) {
             mensaje += "El monto final es: $";
         } else {
             mensaje += "El monto del beneficio es: $";
@@ -170,6 +178,8 @@ public class ControladorAppCliente implements Observador {
                 mensajeError.append("Nos hemos quedado sin stock de ")
                         .append(p.getItem().getNombre())
                         .append(" y no pudimos avisarte antes!");
+                cargarPedidosConfirmados();
+                cargarMontoTotalConfirmados();
             } else if (p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
                 f.confirmarPedidos(p, servicio);
                 p.agregarObservador(controladorAppGestor);
@@ -184,30 +194,33 @@ public class ControladorAppCliente implements Observador {
     }
 
     public String finalizarServicio() throws PedidoException {
-        ArrayList<Pedido> pedidos = servicio.getPedidos();
-        ArrayList<Pedido> pedidosSinConfirmar = servicio.getPedidosSinConfirmar();
-        ArrayList<Pedido> pedidosEnProceso = servicio.getPedidosEnProceso();
+        try {
+            ArrayList<Pedido> pedidos = servicio.getPedidos();
+            ArrayList<Pedido> pedidosSinConfirmar = servicio.getPedidosSinConfirmar();
+            ArrayList<Pedido> pedidosEnProceso = servicio.getPedidosEnProceso();
 
-        if (cliente == null) {
-            throw new PedidoException("Debe identificarse antes de realizar pedidos");
-        } else if (pedidos.isEmpty()) {
-            throw new PedidoException("");
-        } else if (!pedidosSinConfirmar.isEmpty()) {
-            throw new PedidoException("Tienes pedidos sin confirmar!");
-        }
+            if (cliente == null) {
+                throw new PedidoException("Debe identificarse antes de realizar pedidos");
+            } else if (pedidos.isEmpty()) {
+                throw new PedidoException("");
+            } else if (!pedidosSinConfirmar.isEmpty()) {
+                throw new PedidoException("Tienes pedidos sin confirmar!");
+            }
 
-        StringBuilder mensaje = new StringBuilder();
-        mensaje.append(obtenerDatosBeneficio()).append("\n");
-        if (!pedidosEnProceso.isEmpty()) {
-            mensaje.append("Tenés ").append(pedidosEnProceso.size())
-                    .append(" pedidos en proceso. ¡Recordá ir a retirarlos!");
-        } else {
-            mensaje.append("Pago realizado.");
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append(obtenerDatosBeneficio()).append("\n");
+            if (!pedidosEnProceso.isEmpty()) {
+                mensaje.append("Tenés ").append(pedidosEnProceso.size())
+                        .append(" pedidos en proceso. ¡Recordá ir a retirarlos!");
+            } else {
+                mensaje.append("Pago realizado.");
+            }
+            
+            return mensaje.toString();
+        } finally {
+            f.liberarDispositivo(dispositivo);
+            f.cerrarSesion(cliente);
         }
-                
-        f.liberarDispositivo(dispositivo);
-        f.cerrarSesion(cliente);
-        return mensaje.toString();
     }
 
 }

@@ -336,16 +336,18 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-            String mensaje = controlador.finalizarServicio(); // recibe todo
+            String mensaje = controlador.finalizarServicio();
             Mensaje m = new Mensaje(mensaje);
             m.setVisible(true);
             dispose();
         } catch (PedidoException ex) {
-            if (!ex.getMessage().isEmpty()) {
+            if (!ex.getMessage().isEmpty() && !ex.getMessage().equals("Tienes pedidos sin confirmar!")) {
                 Mensaje m = new Mensaje(ex.getMessage());
                 m.setVisible(true);
+                dispose();
+            } else {
+                jTextArea2.setText(ex.getMessage());
             }
-            dispose();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -399,10 +401,34 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
         model.setRowCount(0);
 
         for (Pedido p : pedidos) {
+            String estadoInterno = p.getEstado().getNombre();
+            String estado;
+
+            switch (estadoInterno) {
+                case "NO_CONFIRMADO":
+                    estado = "Sin Confirmar";
+                    break;
+                case "CONFIRMADO":
+                    estado = "Confirmado";
+                    break;
+                case "EN_PROCESO":
+                    estado = "En Proceso";
+                    break;
+                case "FINALIZADO":
+                    estado = "Finalizado";
+                    break;
+                case "ENTREGADO":
+                    estado = "Entregado";
+                    break;
+                default:
+                    estado = estadoInterno;
+                    break;
+            }
+
             Object[] fila = new Object[]{
                 p.getItem().getNombre(),
                 p.getComentario(),
-                p.getEstado().getNombre(),
+                estado,
                 p.getItem().getProcesadora().getNombre(),
                 (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "-",
                 "$" + p.getItem().getPrecio()

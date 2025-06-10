@@ -135,7 +135,7 @@ public class DatosPrueba {
 
         // 7. Gestores
         Gestor g1 = new Gestor("chef1", "c1", "Carlos Alberto", cocina);
-        Gestor g2 = new Gestor("chef2", "c2", "Cecilia Rodriguez", cocina);
+        Gestor g2 = new Gestor("chef2", "c2", "Cecilia Rodriguez", barraSushi);
         Gestor g3 = new Gestor("barman1", "b1", "Bruno Goonzález", bar);
         gestores.addAll(List.of(g1, g2, g3));
 

@@ -68,18 +68,11 @@ public class Servicio extends Observable {
     public void setMontoTotal(int montoTotal) {
         this.montoTotal = montoTotal;
     }
-    
-    public void confirmarPedidos() throws PedidoException {
-        for (Pedido p : pedidos) {
-            if (p.getEstado() instanceof NoConfirmado) {
-                p.confirmar();
-            }
-        }
-    }
 
     public void agregarPedido(Pedido nuevoPedido) {
         if(nuevoPedido != null){
             pedidos.add(nuevoPedido);
+            nuevoPedido.restarStock();
             avisar(EventosPedido.PEDIDO_AGREGADO);
         }
     }
@@ -89,7 +82,6 @@ public class Servicio extends Observable {
             avisar(EventosPedido.PEDIDO_ELIMINADO);
             p.sumarStock();
         }
-        
     }
 
     public int obtenerMontoFinal() {
@@ -107,7 +99,6 @@ public class Servicio extends Observable {
     public void confirmarPedido(Pedido p) throws PedidoException {
         if(p.getEstado().getNombre().equals("NO_CONFIRMADO")){
             p.confirmar();
-            p.restarStock();
             p.getItem().getProcesadora().agregarPedido(p);
             p.getItem().getProcesadora().avisar(p);
             avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
@@ -143,6 +134,9 @@ public class Servicio extends Observable {
         }
         return pedidosProcesados;
     }
+
+    public int obtenerMontoTotalConfirmados() {
+       return cliente.getTipo().obtenerMontoTotalConfirmados(this);}
     
     
 }
