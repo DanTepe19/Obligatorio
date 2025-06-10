@@ -224,6 +224,11 @@ public class AppGestor extends javax.swing.JFrame implements IVistaAppGestor {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             int seleccion = jList1.getSelectedIndex();
+            
+            if (seleccion == -1) {
+                throw new PedidoException("Debe seleccionar un pedido");
+            }
+            
             if (seleccion != -1 && seleccion < pedidosVisibles.size()) {
                 Pedido pedidoSeleccionado = pedidosVisibles.get(seleccion);
                 controlador.tomarPedido(pedidoSeleccionado);

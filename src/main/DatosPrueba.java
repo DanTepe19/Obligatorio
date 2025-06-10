@@ -135,14 +135,19 @@ public class DatosPrueba {
 
         // 7. Gestores
         Gestor g1 = new Gestor("chef1", "c1", "Carlos Alberto", cocina);
-        Gestor g2 = new Gestor("chef2", "c2", "Cecilia Rodriguez", barraSushi);
-        Gestor g3 = new Gestor("barman1", "b1", "Bruno Goonzález", bar);
-        gestores.addAll(List.of(g1, g2, g3));
+        Gestor g2 = new Gestor("chef2", "c2", "Gordon Ramsay", cocina);
+        Gestor g3 = new Gestor("chef3", "c3", "Cecilia Rodriguez", barraSushi);
+        Gestor g4 = new Gestor("chef4", "c4", "Carmela Díaz", barraSushi);
+        Gestor g5 = new Gestor("barman1", "b1", "Bruno González", bar);
+        Gestor g6 = new Gestor("barman2", "b2", "Martina González", bar);
+        gestores.addAll(List.of(g1, g2, g3, g4, g5, g6));
 
-        // Agregar gestores a sus procesadoras
         cocinaGestores.add(g1);
         cocinaGestores.add(g2);
-        barGestores.add(g3);     
+        sushiGestores.add(g3);
+        sushiGestores.add(g4);
+        barGestores.add(g5);  
+        barGestores.add(g6);  
     }
   
     //GETS
