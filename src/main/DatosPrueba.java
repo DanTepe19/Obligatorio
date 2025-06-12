@@ -41,8 +41,8 @@ public class DatosPrueba {
         Insumo papas = new Insumo("Papas", 80, 20);
         Insumo gin = new Insumo("Gin", 30, 10);
         Insumo tonica = new Insumo("Agua Tónica", 40, 10);
-        Insumo arroz = new Insumo("Arroz", 18, 15);
-        Insumo salmon = new Insumo("Salmón", 13, 10);
+        Insumo arroz = new Insumo("Arroz", 16, 15);
+        Insumo salmon = new Insumo("Salmón", 11, 10);
         Insumo cafe = new Insumo("Café", 50, 15);
         Insumo aguaMineral = new Insumo("Agua Mineral", 100, 20);
         Insumo queso = new Insumo("Queso", 70, 15);

@@ -151,13 +151,13 @@ public class ControladorAppCliente implements Observador {
         if (eliminarPedido == null) {
             throw new PedidoException("Debe seleccionar un pedido");
         }
-        if(eliminarPedido.getEstado().getNombre().equals("FINALIZADO")){
+        if (eliminarPedido.getEstado().getNombre().equals("FINALIZADO")) {
             throw new PedidoException("Este pedido ya finalizó. Podés ir a retirarlo!");
         }
-        if(eliminarPedido.getEstado().getNombre().equals("ENTREGADO")){
+        if (eliminarPedido.getEstado().getNombre().equals("ENTREGADO")) {
             throw new PedidoException("Este pedido ya fue entregado.");
         }
-        if(!eliminarPedido.getEstado().getNombre().equals("NO_CONFIRMADO") && !eliminarPedido.getEstado().getNombre().equals("CONFIRMADO") ){
+        if (!eliminarPedido.getEstado().getNombre().equals("NO_CONFIRMADO") && !eliminarPedido.getEstado().getNombre().equals("CONFIRMADO")) {
             throw new PedidoException("Un poco tarde... Ya estamos elaborando este pedido!");
         }
         f.eliminarPedido(eliminarPedido, servicio);
@@ -204,7 +204,8 @@ public class ControladorAppCliente implements Observador {
         }
 
         pedidos.removeAll(pedidosParaEliminar);
-
+        cargarPedidosConfirmados();
+        cargarMontoTotalConfirmados();
         if (huboFalloStock) {
             throw new PedidoException(mensajeError.toString().trim());
         }

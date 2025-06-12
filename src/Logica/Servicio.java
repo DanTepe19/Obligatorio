@@ -56,7 +56,7 @@ public class Servicio extends Observable {
     public ArrayList<Pedido> getPedidos() {
         return pedidos;
     }
-
+    
     public void setPedidos(ArrayList<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
@@ -72,7 +72,6 @@ public class Servicio extends Observable {
     public void agregarPedido(Pedido nuevoPedido) {
         if(nuevoPedido != null){
             pedidos.add(nuevoPedido);
-            nuevoPedido.restarStock();
             avisar(EventosPedido.PEDIDO_AGREGADO);
         }
     }
@@ -99,6 +98,7 @@ public class Servicio extends Observable {
     public void confirmarPedido(Pedido p) throws PedidoException {
         if(p.getEstado().getNombre().equals("NO_CONFIRMADO")){
             p.confirmar();
+            p.restarStock();
             p.getItem().getProcesadora().agregarPedido(p);
             p.getItem().getProcesadora().avisar(p);
             avisar(EventosPedido.CAMBIO_ESTADO_PEDIDO);
