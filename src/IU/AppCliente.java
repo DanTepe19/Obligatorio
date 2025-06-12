@@ -341,7 +341,9 @@ public class AppCliente extends javax.swing.JFrame implements IVistaAppCliente {
             m.setVisible(true);
             dispose();
         } catch (PedidoException ex) {
-            if (!ex.getMessage().isEmpty() && !ex.getMessage().equals("Tienes pedidos sin confirmar!")) {
+            if(ex.getMessage().isEmpty()){
+                dispose();
+            }else if (!ex.getMessage().equals("Tienes pedidos sin confirmar!")) {
                 Mensaje m = new Mensaje(ex.getMessage());
                 m.setVisible(true);
                 dispose();

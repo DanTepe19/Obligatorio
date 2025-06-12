@@ -79,7 +79,7 @@ public class ControladorAppCliente implements Observador {
         int montoFinal = servicio.obtenerMontoFinal();
         int beneficio = montoTotal - montoFinal;
         if (cliente.getTipo() instanceof Comun) {
-            mensaje += "El monto final es: $";
+            mensaje += "El monto final es: $" + montoTotal;
         } else {
             mensaje += "El monto final es: $" + montoFinal + ". ";
             mensaje += "El monto del beneficio es: $" + beneficio + ". ";
@@ -150,6 +150,15 @@ public class ControladorAppCliente implements Observador {
         if (eliminarPedido == null) {
             throw new PedidoException("Debe seleccionar un pedido");
         }
+        if(eliminarPedido.getEstado().getNombre().equals("FINALIZADO")){
+            throw new PedidoException("Este pedido ya finalizó. Podés ir a retirarlo!");
+        }
+        if(eliminarPedido.getEstado().getNombre().equals("ENTREGADO")){
+            throw new PedidoException("Este pedido ya fue entregado.");
+        }
+        if(!eliminarPedido.getEstado().getNombre().equals("NO_CONFIRMADO") && !eliminarPedido.getEstado().getNombre().equals("CONFIRMADO") ){
+            throw new PedidoException("Un poco tarde... Ya estamos elaborando este pedido!");
+        }
         f.eliminarPedido(eliminarPedido, servicio);
     }
 
@@ -168,6 +177,7 @@ public class ControladorAppCliente implements Observador {
         }
 
         ArrayList<Pedido> pedidosParaEliminar = new ArrayList<>();
+        ArrayList<String> itemsYaReportados = new ArrayList<>();
         boolean huboFalloStock = false;
         StringBuilder mensajeError = new StringBuilder();
 
@@ -175,9 +185,16 @@ public class ControladorAppCliente implements Observador {
             if (!p.getItem().hayStock() && p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
                 pedidosParaEliminar.add(p);
                 huboFalloStock = true;
-                mensajeError.append("Nos hemos quedado sin stock de ")
-                        .append(p.getItem().getNombre())
-                        .append(" y no pudimos avisarte antes!");
+
+                String nombreItem = p.getItem().getNombre();
+                if (!itemsYaReportados.contains(nombreItem)) {
+                    mensajeError.append("Nos hemos quedado sin stock de ")
+                            .append(nombreItem)
+                            .append(" y no pudimos avisarte antes!\n");
+                    itemsYaReportados.add(nombreItem);
+                    p.sumarStock();
+                }
+
                 cargarPedidosConfirmados();
                 cargarMontoTotalConfirmados();
             } else if (p.getEstado().getNombre().equals("NO_CONFIRMADO")) {
@@ -215,7 +232,7 @@ public class ControladorAppCliente implements Observador {
             } else {
                 mensaje.append("Pago realizado.");
             }
-            
+
             return mensaje.toString();
         } finally {
             f.liberarDispositivo(dispositivo);
