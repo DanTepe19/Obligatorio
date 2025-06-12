@@ -14,13 +14,13 @@ import observer.Observable;
  * @author diego
  */
 public class SistemaPedidos extends Observable {
-    
+
     private static SistemaPedidos instancia;
-    
+
     private ArrayList<Pedido> pedidos = new ArrayList();
     private ArrayList<CategoriaItem> categorias = DatosPrueba.getCategorias();
     private ArrayList<Procesadora> procesadoras = DatosPrueba.getProcesadoras();
-    
+
     public synchronized static SistemaPedidos getInstancia() {
         if (instancia == null) {
             instancia = new SistemaPedidos();
@@ -38,19 +38,23 @@ public class SistemaPedidos extends Observable {
 
     public ArrayList<Item> obtenerItems() {
         ArrayList<Item> items = new ArrayList();
-        for(CategoriaItem c : categorias){
-            for(Item i : c.getItems()){
-                if(!items.contains(i)){
-                    items.add(i);
+        for (CategoriaItem c : categorias) {
+            for (Item i : c.getItems()) {
+                for (Ingrediente ing : i.getIngredientes()) {
+                    if (ing.getInsumo().getStockActual() >= ing.getInsumo().getStockMinimo()) {
+                        if (!items.contains(i)) {
+                            items.add(i);
+                        }
+                    }
                 }
             }
         }
         return items;
     }
-    
-    public CategoriaItem getCategoria(String nombre){
-        for(CategoriaItem c : categorias){
-            if(c.getNombre().equals(nombre)){
+
+    public CategoriaItem getCategoria(String nombre) {
+        for (CategoriaItem c : categorias) {
+            if (c.getNombre().equals(nombre)) {
                 return c;
             }
         }
@@ -59,18 +63,18 @@ public class SistemaPedidos extends Observable {
 
     public ArrayList<Item> obtenerItemsPorCategoria(CategoriaItem categoria) {
         ArrayList<Item> items = new ArrayList<>();
-        for(Item i : categoria.getItems()){
-            if(i.hayStock()){
+        for (Item i : categoria.getItems()) {
+            if (i.hayStock()) {
                 items.add(i);
             }
         }
         return items;
-     }
+    }
 
     public Item getItem(String nombreItem) {
-        for(CategoriaItem c : categorias){
-            for(Item i : c.getItems()){
-                if(i.getNombre().equals(nombreItem)){
+        for (CategoriaItem c : categorias) {
+            for (Item i : c.getItems()) {
+                if (i.getNombre().equals(nombreItem)) {
                     return i;
                 }
             }
@@ -82,12 +86,12 @@ public class SistemaPedidos extends Observable {
         gestor.tomarPedido(pedidoSeleccionado);
     }
 
-    public void finalizarPedido(Pedido pedido) throws PedidoException{
+    public void finalizarPedido(Pedido pedido) throws PedidoException {
         pedido.getEstado().finalizar(pedido);
     }
 
     public void entregarPedido(Pedido pedido) throws PedidoException {
         pedido.getEstado().entregar(pedido);
     }
-    
+
 }

@@ -140,6 +140,7 @@ public class ControladorAppCliente implements Observador {
         } else if (evento.equals(EventosPedido.PEDIDO_AGREGADO) || evento.equals(EventosPedido.PEDIDO_ELIMINADO)) {
             cargarPedidos();
             cargarMontoTotal();
+            cargarItems();
         }
     }
 
@@ -192,7 +193,6 @@ public class ControladorAppCliente implements Observador {
                             .append(nombreItem)
                             .append(" y no pudimos avisarte antes!\n");
                     itemsYaReportados.add(nombreItem);
-                    p.sumarStock();
                 }
 
                 cargarPedidosConfirmados();
